@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { EmailInput, PasswordInput, SignInButton } from '../components';
+import { SignInForm } from '../components';
 
 const Styled = {
     SignInPage : styled.div`
@@ -45,7 +45,7 @@ const Styled = {
 };
 
 
-const SignInPage = () => {
+const SignInPage = (props) => {
     return (
         <Styled.SignInPage>
             <Styled.ImageContainer>
@@ -53,11 +53,7 @@ const SignInPage = () => {
             </Styled.ImageContainer>
             <Styled.InputContainer>
                 <Styled.Title>Welcome To Pokedex</Styled.Title>
-                <Styled.InputGrid>
-                    <EmailInput />
-                    <PasswordInput />
-                </Styled.InputGrid>
-                <SignInButton />
+                <SignInForm history={props.history}/>
             </Styled.InputContainer>
         </Styled.SignInPage>
     );

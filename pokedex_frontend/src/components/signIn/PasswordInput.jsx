@@ -11,19 +11,14 @@ const Styled = {
     `,
 };
 
-const handleInput = e => {
-    const { value, name } = e.target;
-    console.log(value);
-}
-
-function PasswordInput() {
+function PasswordInput({handleChange}) {
     return (
         <>
             <Styled.Input 
                 placeholder="password"
                 type="password"
                 name="pw"
-                onChange={handleInput}
+                onChange={handleChange}
             />
         </>
     )

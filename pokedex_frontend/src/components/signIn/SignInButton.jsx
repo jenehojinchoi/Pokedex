@@ -5,6 +5,7 @@ const Styled = {
     Button: styled.button`
         width: 100%;
         height: 3.5rem;
+        margin-top: 0.5rem;
         padding: 1rem;
         background-color: ${({ theme }) => theme.color.primary};
         border-radius: 0.5rem;
@@ -13,9 +14,9 @@ const Styled = {
     `,
 };
 
-function SignInButton() {
+function SignInButton({ handleClick }) {
     return (
-        <Styled.Button>
+        <Styled.Button type="click" onClick={handleClick} >
             Sign In to Continue
         </Styled.Button>
     )

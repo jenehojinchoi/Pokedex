@@ -11,19 +11,14 @@ const Styled = {
     `,
 };
 
-const handleInput = e => {
-    const { value, name } = e.target;
-    console.log(value);
-}
-
-function EmailInput() {
+function EmailInput({handleChange}) {
     return (
         <>
             <Styled.Input 
                 placeholder="email"
                 type="text"
                 name="email"
-                onChange={handleInput}
+                onChange={handleChange}
             />
         </>
     )
