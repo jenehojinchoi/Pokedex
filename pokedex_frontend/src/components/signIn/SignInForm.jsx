@@ -10,7 +10,7 @@ const Styled = {
     `,
 };
 
-function SignInForm({history}) {
+function SignInForm({ history }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -24,17 +24,13 @@ function SignInForm({history}) {
         })
         .then(response => response.json())
         .then(result => {
-            result.TOKEN 
-            ? localStorage.setItem('access_token', result.TOKEN)
-            : alert('SIGNIN_FAILED')
-        })
-        .then(() => {
-            localStorage.getItem('access_token') 
-            ? history.replace('/main') 
-            : alert('NO_TOKEN')
+            if (result.TOKEN) {
+                localStorage.setItem('access_token', result.TOKEN);
+                history.push('/main');
+            } else alert('SIGNIN_FAILED')
         })
     };
-    
+
     const handleEmail = e => {
         setEmail(e.target.value);
     }
@@ -44,6 +40,7 @@ function SignInForm({history}) {
     }
 
     useEffect(() => {
+        console.log('Form: ', history);
       }, [email, password, history]);
 
     return (

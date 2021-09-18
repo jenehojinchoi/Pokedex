@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect } from 'react';
 import styled from 'styled-components';
 import { SignInForm } from '../components';
 
@@ -24,7 +24,7 @@ const Styled = {
         display: grid;
         position: relative;
         top: 30%;
-        left: 20%;
+        left: 25%;
         width: 35rem;
         height: 17rem;
         grid-gap: 2.5rem;
@@ -46,6 +46,12 @@ const Styled = {
 
 
 const SignInPage = (props) => {
+
+    useEffect(() => {
+        console.log('Page: ', props.history);
+      }, [props]);
+
+
     return (
         <Styled.SignInPage>
             <Styled.ImageContainer>
@@ -53,7 +59,7 @@ const SignInPage = (props) => {
             </Styled.ImageContainer>
             <Styled.InputContainer>
                 <Styled.Title>Welcome To Pokedex</Styled.Title>
-                <SignInForm history={props.history}/>
+                <SignInForm history={props.history} />
             </Styled.InputContainer>
         </Styled.SignInPage>
     );

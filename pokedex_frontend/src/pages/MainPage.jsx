@@ -3,19 +3,23 @@ import styled from 'styled-components';
 
 const Styled = {
     MainPage : styled.div`
-        display: grid;
-        grid-gap: 0;
-        grid-template-columns: repeat(2, 1fr);
         width: 100vw;
         height: 100vh;
+        font: ${({ theme }) => theme.font.display2};
+        color: ${({ theme }) => theme.color.primary};
     `,
 };
 
-const MainPage = () => {
+const MainPage = ({ isAuthorized }) => {
     return (
-        <Styled.MainPage>
-            MainPage!
-        </Styled.MainPage>
+        <> {
+            isAuthorized 
+            ? (
+                <Styled.MainPage> MainPage! </Styled.MainPage>
+            ) : (
+                <Styled.MainPage> Not Authorized </Styled.MainPage>
+            )
+        } </>
     );
 };
 
