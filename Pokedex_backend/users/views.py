@@ -1,30 +1,41 @@
 import json
+import bcrypt
+import jwt
 
+from django.core.validators import validate_email
 from django.http import JsonResponse
 from django.views import View
 
 from .models import User
+from my_settings import SECRET_KEY, ALGORITHM
 
 class SignUpView(View):
     def post(self, request):
         try:
             data = json.loads(request.body)
 
-            email = data['email']
-            password = data['password']
+            email = data.get('email', None)
+            password = data.get('password', None)
 
             if User.objects.filter(email=email).exists():
                 return JsonResponse({"message" : "EMAIL_EXISTS"}, status = 400)
             
+            if not email or not password:
+                return JsonResponse({"message" : "REQUIRED_FIELD"}, status = 400)
+            
+            validate_email(email)
+                
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
             User.objects.create(
                 email = email,
-                password = password
+                password = hashed_password
             )
 
             return JsonResponse({"message" : "SUCCESS"}, status = 201)
 
         except:
-            return JsonResponse({"message" : "ERROR"}, status = 400)
+            return JsonResponse({"message" : "INVALID_EMAIL"}, status = 400)
 
 class SignInView(View):
     def post(self, request):
@@ -42,10 +53,9 @@ class SignInView(View):
 
             user = User.objects.get(email=email)
 
-            if (user.password == password):
-                # add access_token 
-                return JsonResponse({"message" : "SUCCESS"}, status=200)
-
+            if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                access_token = jwt.encode({"id" : user.id }, SECRET_KEY, algorithm=ALGORITHM)
+                return JsonResponse({"message" : "SUCCESS", "TOKEN" : access_token}, status=200)
 
             return JsonResponse({"message" : "UNAUTHORIZED_APPROACH"}, status=401)
 
