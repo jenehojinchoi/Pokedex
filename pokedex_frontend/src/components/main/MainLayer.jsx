@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Card, Header } from '../index';
 
@@ -20,10 +20,16 @@ const Styled = {
 };
 
 
-function MainLayer( { pokemonList }) {
+function MainLayer() {
+    const [pokemonList, setPokemonList] = useState([]);
+
+    const changePokemonList = (list) => {
+        setPokemonList(list)
+    }
+
     return (
         <Styled.MainPage> 
-            <Header pokemonList={pokemonList}/>
+            <Header pokemonList={pokemonList} changePokemonList={changePokemonList}/>
             <Styled.Grid>
             {pokemonList?.map((pokemon, idx) => (
                 <Card key={idx} pokemon={pokemon} />

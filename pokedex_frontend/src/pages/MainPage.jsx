@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import { MainLayer } from '../components';
+import getPokemonData from '../lib/api';
 
 const Styled = {
     MainPage : styled.div`
@@ -22,32 +22,21 @@ const Styled = {
 };
 
 const MainPage = ({ isAuthorized }) => {
-    const [ pokemonList, setPokemonList ] = useState([]);
+    // const [ pokemonList, setPokemonList ] = useState([]);
 
-    const getPokemonData = async () => {
-        try {
-            const data = await axios.get(`https://pokeapi.co/api/v2/pokemon`);
-            console.log('getPokemonData');
-            console.log(data);
-            return data.data.results;
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    useEffect(() => {
-        (async() => {
-            const data = await getPokemonData();
-            console.log('data: ', data);
-            setPokemonList(data);
-            console.log('pokemonList: ', pokemonList);
-        })();
-    }, []);
+    // useEffect(() => {
+    //     (async() => {
+    //         const data = await getPokemonData();
+    //         console.log('data: ', data);
+    //         setPokemonList(data);
+    //         console.log('pokemonList: ', pokemonList);
+    //     })();
+    // }, []);
 
     return (
         <> {
             isAuthorized 
-            ? <MainLayer pokemonList={pokemonList}/>
+            ? <MainLayer />
             : <Styled.MainPage> Not Authorized </Styled.MainPage>
         } </>
     );

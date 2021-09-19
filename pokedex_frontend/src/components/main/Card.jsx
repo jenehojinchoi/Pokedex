@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Styled = {
@@ -27,11 +27,6 @@ const Styled = {
 };
 
 function Card({ pokemon }) {
-    useEffect(() => {
-        console.log(pokemon);
-        console.log(pokemon.url.split('/')[6]);
-    }, );
-
     return (
         <Styled.Card>
             <Styled.Img 

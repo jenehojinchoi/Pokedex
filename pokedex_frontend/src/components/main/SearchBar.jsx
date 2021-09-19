@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { getPokemonData, getPokemonDataWithSearchTerm } from '../../lib/api';
 
 const Styled = {
     Searchbar: styled.form`
@@ -32,20 +33,26 @@ const Styled = {
     `,
 }
 
-function SearchBar({pokemonList}) {
+function SearchBar({changePokemonList}) {
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchResult, setSearchResult] = useState([]);
 
     const handleChange = e => {
         setSearchTerm(e.target.value);
     }
 
     useEffect(() => {
-        const result = pokemonList.filter(pokemon =>
-            pokemon.includes(searchTerm)
-        );
-        setSearchResult(result);
-    })
+        console.log('searchTerm: ', searchTerm);
+        (async() => {
+            if (searchTerm !== '' && searchTerm) {
+                const pokemonList = await getPokemonDataWithSearchTerm(searchTerm);
+                changePokemonList(pokemonList);
+            } else {
+                const pokemonList = await getPokemonData();
+                changePokemonList(pokemonList);
+            }
+        })();
+        
+    }, [searchTerm]);
 
     return (
         <Styled.Searchbar>
@@ -55,7 +62,8 @@ function SearchBar({pokemonList}) {
                 name='q' 
                 placeholder='Search...'
                 onChange={handleChange}
-            ></Styled.Input>
+            >
+            </Styled.Input>
             <Styled.Button>Search</Styled.Button>
         </Styled.Searchbar>
     )
