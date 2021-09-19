@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Card } from '../index';
+import { Card, Header } from '../index';
 
 const Styled = {
     MainPage : styled.div`
@@ -9,32 +9,21 @@ const Styled = {
         height: 100vh;
     `,
 
-    Title: styled.div`
-        color: ${({ theme }) => theme.color.skyblue};
-        font: ${({ theme }) => theme.font.display1};
-    `,
-
     Grid: styled.div`
         display: grid;
         grid-gap: 2rem;
         grid-template-columns: repeat(4, 4fr);
         margin: auto;
-        width: 60vw;
+        width: 50vw;
         height: 80vh;
     `,
 };
 
 
 function MainLayer( { pokemonList }) {
-    useEffect(() => {
-        console.log(pokemonList);
-    }, );
-    
     return (
         <Styled.MainPage> 
-            <Styled.Title>
-                Pokedex 
-            </Styled.Title>
+            <Header pokemonList={pokemonList}/>
             <Styled.Grid>
             {pokemonList?.map((pokemon, idx) => (
                 <Card key={idx} pokemon={pokemon} />

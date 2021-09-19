@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 
 const Styled = {
@@ -16,8 +15,8 @@ const Styled = {
     `,
 
     Img: styled.img`
-        width: 12rem;
-        height: 15rem;
+        width: auto;
+        height: 12rem;
         border-radius: 1rem;
         margin-bottom: 1rem;
     `,

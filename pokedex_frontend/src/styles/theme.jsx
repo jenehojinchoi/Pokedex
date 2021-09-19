@@ -10,9 +10,10 @@ const color = {
   };
   
   const font = {
-    display2: "normal 900 3.5rem/3.5rem 'Roboto'",
+    display2: "normal 700 3.5rem/3.5rem 'Roboto'",
     display1: "normal 400 3.5rem/3.5rem 'Roboto'",
-    cardTitle: "normal 400 1.5rem/2.4rem 'Roboto'",
+    cardTitle: "normal 400 1.5rem/1.5rem 'Roboto'",
+    searchButton: "normal 400 1.3rem/1.3rem 'Roboto'",
   };
   
   const theme = {
