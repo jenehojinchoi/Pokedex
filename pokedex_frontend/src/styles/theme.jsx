@@ -7,6 +7,8 @@ const color = {
     skyblue: "#33A2FF",
     background: "#EEEEEE",
     white: "#FFFFFF",
+    background2: "#B5DBE5",
+    grey: "#C2C2C2",
   };
   
   const font = {

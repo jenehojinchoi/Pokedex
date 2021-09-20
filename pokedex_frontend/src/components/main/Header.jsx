@@ -18,11 +18,11 @@ const Styled = {
     `,
 };
 
-function Header({ changePokemonList }) {
+function Header({ changePokemonList, pageNum }) {
     return (
         <Styled.Header>
             <Styled.Title>Pokedex</Styled.Title>
-            <SearchBar changePokemonList={changePokemonList} />
+            <SearchBar changePokemonList={changePokemonList} pageNum={pageNum}/>
         </Styled.Header>
     )
 }

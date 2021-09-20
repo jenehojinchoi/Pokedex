@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { MainLayer } from '../components';
-import getPokemonData from '../lib/api';
 
 const Styled = {
     MainPage : styled.div`
@@ -22,17 +21,6 @@ const Styled = {
 };
 
 const MainPage = ({ isAuthorized }) => {
-    // const [ pokemonList, setPokemonList ] = useState([]);
-
-    // useEffect(() => {
-    //     (async() => {
-    //         const data = await getPokemonData();
-    //         console.log('data: ', data);
-    //         setPokemonList(data);
-    //         console.log('pokemonList: ', pokemonList);
-    //     })();
-    // }, []);
-
     return (
         <> {
             isAuthorized 
