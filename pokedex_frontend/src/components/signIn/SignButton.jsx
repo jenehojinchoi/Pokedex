@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { signIn, signUp } from '../../lib/api';
 
 const Styled = {
     Button: styled.button`
@@ -17,39 +18,26 @@ const Styled = {
 function SignButton({ history, email, password }) {
     const pathname = history.location.pathname.split('/')[2];
 
-    const handleSignInClick = e => {
-        fetch('http://127.0.0.1:8000/user/signin', {
-            method: 'POST',
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.TOKEN) {
-                localStorage.setItem('access_token', result.TOKEN);
-                localStorage.setItem('user', email)
-                history.push('/main');
-            } else alert('Sign in failed. Please check your email and password.')
-        })
+    const setAccessTokenAndRedirect = (data) => {
+        if (data) {
+            localStorage.setItem('access_token', data.TOKEN);
+            localStorage.setItem('user', email);
+            history.push('/main');
+        } else {
+            alert('Sign in failed. Please check your email and password.');
+        }
+    }
+    const handleSignInClick = async(e) => {
+        const response = await signIn(email, password);
+        setAccessTokenAndRedirect(response.data);
     };
 
-    const handleSignUpClick = e => {
-        fetch('http://127.0.0.1:8000/user/signup', {
-            method: 'POST',
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.message === "SUCCESS") {
-                alert('Successfully created an account! Redirecting to sign in page...');
-                history.push('/users/signin');
-            } else alert('Sign up Failed!');
-        })
+    const handleSignUpClick = async(e) => {
+        const response = await signUp(email, password);
+        if (response) {
+            alert('Successfully created an account. Redirecting to sign in page...');
+            history.push('/users/signin');
+        }
     }
 
     return (

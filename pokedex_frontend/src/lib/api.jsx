@@ -1,6 +1,31 @@
 
 import axios from 'axios';
 
+export const signIn = async(email, password) => {
+    try {
+        const res = await axios.post(`http://127.0.0.1:8000/user/signin`, {
+            email: email,
+            password: password,
+        });
+        return res;
+    } catch (e) {
+        console.log('e: ', e);
+        return e;
+    }
+}
+export const signUp = async(email, password) => {
+    try {
+        const res = await axios.post(`http://127.0.0.1:8000/user/signup`, {
+            email: email,
+            password: password,
+        });
+        return res;
+    } catch (e) {
+        console.log('e: ', e);
+        return e;
+    }
+}
+
 export const getPokemonData = async (pageNum) => {
     try {
         const data = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=100&offset=0`);
