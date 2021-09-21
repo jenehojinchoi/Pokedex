@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { likePokemon } from '../../lib/api';
 
 const Styled = {
     Card: styled.div`
@@ -55,8 +56,8 @@ function Card({ pokemon }) {
         setHovered(false);
     };
 
-    const handleClick = () => {
-        console.log('Liked!');
+    const handleClick = async() => {
+        const response = await likePokemon(pokemon);
         setLiked(!liked);
     }
 
