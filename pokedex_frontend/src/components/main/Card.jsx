@@ -47,7 +47,7 @@ const Styled = {
 function Card({ pokemon }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
-    
+
     const handleOnMouseEnter = () => {
         setHovered(true);
     };
@@ -57,19 +57,21 @@ function Card({ pokemon }) {
     };
 
     const handleClick = async() => {
-        const response = await likePokemon(pokemon);
+        await likePokemon(pokemon);
+        setLiked(!liked);
     }
 
     useEffect(() => {
         (async function() {
             try {
-                const data = await getLikedList(pokemon);
-                console.log(data);
+                const likedPokemonList = await getLikedList(pokemon);
+                const likedPokemonIdList = likedPokemonList.map(({ id }) => id)
+                likedPokemonIdList.includes(pokemon.id) ? setLiked(true) : setLiked(false)
             } catch (e) {
                 console.log(e);
             }
         })();
-    }, [])
+    }, [liked])
 
     return (
         <>

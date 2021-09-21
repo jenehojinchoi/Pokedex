@@ -90,10 +90,8 @@ export const getLikedList = async() => {
     }
 
     try {
-        console.log('getLikedList');
         const data = await instance.get(`/user/likedlist`, params);
-        console.log(data.likedPokemonList);
-        return data.likedPokemonList;
+        return data.data.data.likedPokemonList;
         
     } catch (e) {
         console.log(e);
