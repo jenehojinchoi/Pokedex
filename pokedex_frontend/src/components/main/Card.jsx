@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { likePokemon } from '../../lib/api';
+import { likePokemon, getLikedList } from '../../lib/api';
 
 const Styled = {
     Card: styled.div`
@@ -47,7 +47,7 @@ const Styled = {
 function Card({ pokemon }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
-
+    
     const handleOnMouseEnter = () => {
         setHovered(true);
     };
@@ -58,8 +58,18 @@ function Card({ pokemon }) {
 
     const handleClick = async() => {
         const response = await likePokemon(pokemon);
-        setLiked(!liked);
     }
+
+    useEffect(() => {
+        (async function() {
+            try {
+                const data = await getLikedList(pokemon);
+                console.log(data);
+            } catch (e) {
+                console.log(e);
+            }
+        })();
+    }, [])
 
     return (
         <>
