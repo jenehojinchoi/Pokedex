@@ -3,7 +3,7 @@ import bcrypt
 import jwt
 
 from django.core.validators import validate_email
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views import View
 
 from .models import User
@@ -64,7 +64,7 @@ class SignInView(View):
         except KeyError:
             return JsonResponse({"message" : "KEY_ERROR"}, status=400)
  
-class UserLikeView(View):
+class LikeView(View):
     @login_decorator
     def post(self, request):
         try: 
@@ -91,3 +91,24 @@ class UserLikeView(View):
         except:
 
             return JsonResponse({"message" : "LIKE_FAIL"}, status = 400)
+
+
+class LikedPokemonListView(View):
+    @login_decorator
+    def get(self, request):
+        try:
+            email = request.GET.get('email')
+            user = User.objects.get(email=email)
+
+            likes = LikePokemon.objects.filter(user=user)
+            liked_pokemon_list = [{
+                "id" : like.pokemon.id,
+                "apiId" : like.pokemon.apiId,
+                "name": like.pokemon.name
+            } for like in likes]
+
+            return JsonResponse({"data" : {'likedPokemonList' : liked_pokemon_list}}, status=200)
+
+        except:
+            return JsonResponse({"message" : "GET_LIKES_FAIL"}, status = 400)
+        
