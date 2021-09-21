@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { getPokemonData, getPokemonDataWithSearchTerm } from '../../lib/api';
 
 const Styled = {
     Searchbar: styled.div`
@@ -8,8 +7,9 @@ const Styled = {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        width: 50rem;
+        width: 56rem;
         height: 4rem;
+        margin: 0rem 40rem;
     `,
     
     Input: styled.input`
@@ -34,27 +34,10 @@ const Styled = {
     `,
 }
 
-function SearchBar({changePokemonList, pageNum}) {
-    const [searchTerm, setSearchTerm] = useState('');
-    
+function SearchBar({ setSearchTerm }) {
     const handleChange = e => {
         setSearchTerm(e.target.value);
     }
-
-    useEffect(() => {
-        console.log('pageNum: ', pageNum);
-        console.log('searchTerm: ', searchTerm);
-        (async() => {
-            if (searchTerm !== '' && searchTerm) {
-                const pokemonList = await getPokemonDataWithSearchTerm(searchTerm, pageNum);
-                changePokemonList(pokemonList);
-            } else {
-                const pokemonList = await getPokemonData(pageNum);
-                changePokemonList(pokemonList);
-            }
-        })();
-        
-    }, [searchTerm, pageNum]);
 
     return (
         <Styled.Searchbar>

@@ -9,7 +9,6 @@ function App() {
 
     useEffect(() => {
         localStorage.getItem('access_token') && setIsAuthorized(true);
-        console.log(isAuthorized);
     }, [isAuthorized]);
 
     return (

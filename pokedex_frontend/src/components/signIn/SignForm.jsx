@@ -35,8 +35,9 @@ function SignForm({ history }) {
         .then(result => {
             if (result.TOKEN) {
                 localStorage.setItem('access_token', result.TOKEN);
+                localStorage.setItem('user', email)
                 history.push('/main');
-            } else alert('Sign in Failed!')
+            } else alert('Sign in failed. Please check your email and password.')
         })
     };
 

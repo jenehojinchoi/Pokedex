@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { MainLayer } from '../components';
 
@@ -21,6 +21,10 @@ const Styled = {
 };
 
 const MainPage = ({ isAuthorized }) => {
+    useEffect(() => {
+        console.log('isAuthorized: ', isAuthorized);
+    }, [isAuthorized]);
+
     return (
         <> {
             isAuthorized 

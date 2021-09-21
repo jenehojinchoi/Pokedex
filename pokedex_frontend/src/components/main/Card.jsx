@@ -68,8 +68,10 @@ function Card({ pokemon }) {
             >
                 {hovered && <Styled.HoveredCard></Styled.HoveredCard>}
                 <Styled.Img 
-                    alt={pokemon.name} 
-                    src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} />
+                    src={pokemon.image}
+                    onerror={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} 
+                />
+
                 {pokemon.name}
                 {hovered && 
                     <Styled.Like>
@@ -87,4 +89,4 @@ function Card({ pokemon }) {
     )
 }
 
-export default Card;
+export default Card

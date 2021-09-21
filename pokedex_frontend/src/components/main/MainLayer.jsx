@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Card, Header } from '../index';
+import { getPokemonData, getPokemonDataWithSearchTerm } from '../../lib/api';
 
 const Styled = {
     MainPage : styled.div`
@@ -31,10 +32,11 @@ const Styled = {
 function MainLayer() {
     const [pokemonList, setPokemonList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
     const [pageNum, setPageNum] = useState(1);
-
-    const changePokemonList = (list) => {
-        setPokemonList(list)
+    
+    const changeSearchTerm = (newSearchTerm) => {
+        setSearchTerm(newSearchTerm);
     }
 
     const handleScroll = () => {
@@ -55,8 +57,8 @@ function MainLayer() {
     function fetchMoreListItems() {
         console.log('Fetch more list items');
         setTimeout(() => {
-          //setPageNum(pageNum+1);
           setIsLoading(false);
+          setPageNum(0);
         }, 2000);
     }
 
@@ -64,7 +66,7 @@ function MainLayer() {
         if (!isLoading) return;
         fetchMoreListItems();
         console.log('pageNum: ', pageNum);
-    }, [isLoading]);
+    }, [isLoading, pageNum]);
 
     useEffect(() => {
         console.log('pageNum: ', pageNum);
@@ -74,9 +76,23 @@ function MainLayer() {
         }
     }, []);
 
+    useEffect(() => {
+        (async() => {
+            if (searchTerm !== '' && searchTerm) {
+                const pokemonList = await getPokemonDataWithSearchTerm(searchTerm, pageNum);
+                setPokemonList(pokemonList);
+            } else {
+                setPageNum(1);
+                const pokemonList = await getPokemonData(pageNum);
+                setPokemonList(pokemonList);
+            }
+        })();
+        
+    }, [searchTerm, pageNum]);
+
     return (
         <Styled.MainPage> 
-            <Header changePokemonList={changePokemonList} pageNum={pageNum}/>
+            <Header setSearchTerm={changeSearchTerm} pageNum={pageNum}/>
             <Styled.Grid>
             {pokemonList?.map((pokemon, idx) => (
                 <Card key={idx} pokemon={pokemon} />
