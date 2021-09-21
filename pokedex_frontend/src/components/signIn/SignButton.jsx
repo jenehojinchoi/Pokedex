@@ -14,12 +14,19 @@ const Styled = {
     `,
 };
 
-function SignInButton({ handleClick }) {
+function SignButton({ handleClick, todo }) {
     return (
-        <Styled.Button type="click" onClick={handleClick} >
-            Sign In to Continue
-        </Styled.Button>
+        (todo === 'signin') 
+        ? (
+            <Styled.Button type="click" onClick={handleClick}>
+                Sign In to Continue
+            </Styled.Button>
+        ) : (
+            <Styled.Button type="click" onClick={handleClick}>
+                Create an account
+            </Styled.Button>
+        )
     )
 }
 
-export default SignInButton
+export default SignButton;

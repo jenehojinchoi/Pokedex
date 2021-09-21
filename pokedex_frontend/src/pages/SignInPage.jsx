@@ -1,9 +1,9 @@
 import React, {useEffect } from 'react';
 import styled from 'styled-components';
-import { SignInForm } from '../components';
+import { SignForm } from '../components';
 
 const Styled = {
-    SignInPage : styled.div`
+    SignPage : styled.div`
         display: grid;
         grid-gap: 0;
         grid-template-columns: repeat(2, 1fr);
@@ -45,24 +45,25 @@ const Styled = {
 };
 
 
-const SignInPage = (props) => {
+const SignPage = (props) => {
 
     useEffect(() => {
         console.log('Page: ', props.history);
+        console.log('Page: ', props.history.location.pathname.split('/')[2]);
       }, [props]);
 
 
     return (
-        <Styled.SignInPage>
+        <Styled.SignPage>
             <Styled.ImageContainer>
                 <Styled.Image src="https://cdn2.bulbagarden.net/upload/a/a7/PSMD_poster.png" alt="pokemons" />
             </Styled.ImageContainer>
             <Styled.InputContainer>
                 <Styled.Title>Welcome To Pokedex</Styled.Title>
-                <SignInForm history={props.history} />
+                <SignForm history={props.history} />
             </Styled.InputContainer>
-        </Styled.SignInPage>
+        </Styled.SignPage>
     );
 };
 
-export default SignInPage;
+export default SignPage;

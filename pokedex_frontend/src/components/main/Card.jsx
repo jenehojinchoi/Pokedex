@@ -27,7 +27,7 @@ const Styled = {
         height: 23rem;
         border-radius: 1rem;
         background-color: ${({ theme }) => theme.color.grey};
-        opacity: 0.5;
+        opacity: 0.6;
     `,
 
     Img: styled.img`

@@ -12,7 +12,7 @@ const Styled = {
 
     Grid: styled.div`
         display: grid;
-        grid-gap: 2rem;
+        grid-gap: 3rem;
         grid-template-columns: repeat(4, 4fr);
         margin: auto;
         width: 50vw;

@@ -16,6 +16,13 @@ const Styled = {
         color: ${({ theme }) => theme.color.skyblue};
         font: ${({ theme }) => theme.font.display2};
     `,
+
+    Profile: styled.div`
+        margin-left: 40rem;
+        width: 5rem;
+        height: 5rem;
+        background-color: ${({ theme }) => theme.color.skyblue};
+    `,
 };
 
 function Header({ changePokemonList, pageNum }) {
@@ -23,6 +30,7 @@ function Header({ changePokemonList, pageNum }) {
         <Styled.Header>
             <Styled.Title>Pokedex</Styled.Title>
             <SearchBar changePokemonList={changePokemonList} pageNum={pageNum}/>
+            <Styled.Profile></Styled.Profile>
         </Styled.Header>
     )
 }
