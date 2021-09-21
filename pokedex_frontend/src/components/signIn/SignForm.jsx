@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { EmailInput, PasswordInput, SignButton } from '../index';
+import { Input, SignButton } from '../index';
 
 const Styled = {
     InputGrid: styled.div`
@@ -22,87 +22,46 @@ const Styled = {
 function SignForm({ history }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const pathname = history.location.pathname.split('/')[2];
 
-    const handleSignInClick = e => {
-        fetch('http://127.0.0.1:8000/user/signin', {
-            method: 'POST',
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.TOKEN) {
-                localStorage.setItem('access_token', result.TOKEN);
-                localStorage.setItem('user', email)
-                history.push('/main');
-            } else alert('Sign in failed. Please check your email and password.')
-        })
-    };
-
-    const handleSignUpClick = e => {
-        fetch('http://127.0.0.1:8000/user/signup', {
-            method: 'POST',
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.message === "SUCCESS") {
-                alert('Successfully created an account! Redirecting to sign in page...');
-                history.push('/users/signin');
-            } else alert('Sign up Failed!');
-        })
+    const handleChange = e => {
+        if (e.target.name === 'email') {
+            setEmail(e.target.value);
+        } else if (e.target.name === 'password') {
+            setPassword(e.target.value);
+        } else {}
     }
 
-    const handleEmail = e => {
-        setEmail(e.target.value);
+    const handleClick = e => {
+        console.log('history: ', history);
+        if (pathname === 'signin') {
+            history.push('/users/signup');
+        } else if (pathname === 'signup') {
+            history.push('/users/signin');
+        }
     }
 
-    const handlePassword = e => {
-        setPassword(e.target.value);
-    }
-
-    const handleGoToSignUp = e => {
-        history.push('/users/signup');
-    }
-
-    const handleGoToSignIn = e => {
-        history.push('/users/signin');
-    }
-
-    useEffect(() => {
-        console.log('Form: ', history);
-      }, [email, password, history]);
+    const buttonText = (
+        pathname === 'signin' 
+        ? 'Don\'t have an account? Click here to Sign up' 
+        : 'Already have an account? Click here to Sign in'
+    )
 
     return (
-        (history.location.pathname.split('/')[2] === 'signin') 
-        ? (
-            <>
-                <Styled.InputGrid>
-                    <EmailInput handleChange={handleEmail} />
-                    <PasswordInput handleChange={handlePassword} />
-                    <SignButton handleClick={handleSignInClick} todo={'signin'}/>
-                </Styled.InputGrid>
-                <Styled.GoToSignUpButton onClick={handleGoToSignUp} >
-                    Don't have an account? Click here to Sign up
-                </Styled.GoToSignUpButton>
-            </>
-        ) : (
-            <>
-                <Styled.InputGrid>
-                    <EmailInput handleChange={handleEmail} />
-                    <PasswordInput handleChange={handlePassword} />
-                    <SignButton handleClick={handleSignUpClick} todo={'signup'}/>
-                </Styled.InputGrid>
-                <Styled.GoToSignInButton onClick={handleGoToSignIn}>
-                    Already have an account? Click here to Sign in
-                </Styled.GoToSignInButton>
-            </>
-        )
+        <>
+            <Styled.InputGrid>
+                <Input input={'email'} handleChange={handleChange} />
+                <Input input={'password'} handleChange={handleChange} />
+                <SignButton 
+                    history={history} 
+                    email={email} 
+                    password={password}
+                />
+            </Styled.InputGrid>
+            <Styled.GoToSignUpButton onClick={handleClick} >
+                {buttonText}
+            </Styled.GoToSignUpButton>
+        </>
     )
 }
 

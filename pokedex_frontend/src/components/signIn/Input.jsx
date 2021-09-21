@@ -11,17 +11,26 @@ const Styled = {
     `,
 };
 
-function EmailInput({handleChange}) {
+function Input({input, handleChange}) {
+
     return (
-        <>
+        (input === 'email')
+        ? (
             <Styled.Input 
                 placeholder="email"
                 type="text"
                 name="email"
                 onChange={handleChange}
             />
-        </>
+        ) : (
+            <Styled.Input 
+                placeholder="password"
+                type="password"
+                name="password"
+                onChange={handleChange}
+            />
+        )
     )
 }
 
-export default EmailInput;
+export default Input;

@@ -1,5 +1,6 @@
-export { default as EmailInput } from './signIn/EmailInput'; 
-export { default as PasswordInput } from './signIn/PasswordInput'; 
+// export { default as EmailInput } from './signIn/EmailInput'; 
+// export { default as PasswordInput } from './signIn/PasswordInput';
+export { default as Input } from './signIn/Input'; 
 export { default as SignButton } from './signIn/SignButton'; 
 export { default as SignForm } from './signIn/SignForm';
 
