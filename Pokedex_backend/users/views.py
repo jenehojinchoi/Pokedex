@@ -72,13 +72,22 @@ class UserLikeView(View):
 
             email = data.get('email', None)
             pokemon_name = data.get('pokemonName', None)
+            pokemon_apiId = data.get('pokemonApiId', None)
 
             user = User.objects.get(email=email)
-            pokemon = Pokemon.objects.get(name=pokemon_name)
 
-            LikePokemon.objects.create(user=user, pokemon=pokemon)
+            pokemon = Pokemon.objects.get_or_create(
+                name = pokemon_name,
+                apiId = pokemon_apiId
+            )[0]
 
-            return JsonResponse({"message" : "LIKE_SUCCESS"}, status=200)
+            if LikePokemon.objects.filter(user=user, pokemon=pokemon).exists():
+                LikePokemon.objects.filter(user=user, pokemon=pokemon).delete()
+                return JsonResponse({"message" : "LIKE_DELETE_SUCCESS"}, status=200)
+            else:
+                LikePokemon.objects.create(user=user, pokemon=pokemon)
+                return JsonResponse({"message" : "LIKE_SUCCESS"}, status=200)
 
         except:
+
             return JsonResponse({"message" : "LIKE_FAIL"}, status = 400)
