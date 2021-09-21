@@ -2,6 +2,7 @@ from django.db import models
 from users.models import User
 
 class Pokemon(models.Model):
+    apiId = models.PositiveIntegerField()
     name = models.CharField(max_length=50)
 
     class Meta:
@@ -11,4 +12,4 @@ class LikePokemon(models.Model):
     pokemon   = models.ForeignKey('Pokemon', on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'likes_users'
+        db_table = 'likes_pokemons'

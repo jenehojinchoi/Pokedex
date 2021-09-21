@@ -1,4 +1,3 @@
-
 import  jwt
 import  json
 import  requests
@@ -6,7 +5,7 @@ import  requests
 from django.http  import JsonResponse
 from django.conf  import settings
 from my_settings  import SECRET_KEY, ALGORITHM
-from user.models  import User
+from users.models  import User
 
 
 def login_decorator(func):

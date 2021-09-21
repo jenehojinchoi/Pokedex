@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.views import View
 
 from .models import User
+from pokemons.models import Pokemon, LikePokemon
+from .utils import login_decorator
 from my_settings import SECRET_KEY, ALGORITHM
 
 class SignUpView(View):
@@ -39,9 +41,9 @@ class SignUpView(View):
 
 class SignInView(View):
     def post(self, request):
-        data = json.loads(request.body)
-
         try: 
+            data = json.loads(request.body)
+
             email = data.get('email', None)
             password = data.get('password', None)
 
@@ -62,3 +64,21 @@ class SignInView(View):
         except KeyError:
             return JsonResponse({"message" : "KEY_ERROR"}, status=400)
  
+class UserLikeView(View):
+    @login_decorator
+    def post(self, request):
+        try: 
+            data = json.loads(request.body)
+
+            email = data.get('email', None)
+            pokemon_name = data.get('pokemonName', None)
+
+            user = User.objects.get(email=email)
+            pokemon = Pokemon.objects.get(name=pokemon_name)
+
+            LikePokemon.objects.create(user=user, pokemon=pokemon)
+
+            return JsonResponse({"message" : "LIKE_SUCCESS"}, status=200)
+
+        except:
+            return JsonResponse({"message" : "LIKE_FAIL"}, status = 400)
