@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Card, Header } from '../index';
-import { getPokemonData, getPokemonDataWithSearchTerm } from '../../lib/api';
+import { Header, Grid } from '../index';
+import { getFullPokemonList } from '../../lib/api';
+
 
 const Styled = {
     MainPage : styled.div`
@@ -11,31 +12,29 @@ const Styled = {
         width: 100vw;
     `,
 
-    Grid: styled.div`
-        display: grid;
-        grid-gap: 3rem;
-        grid-template-columns: repeat(4, 4fr);
-        margin: auto;
-        width: 50vw;
-    `,
-
     Loading: styled.div`
         width: 50vw;
         margin: auto;
         padding-top: 2rem;
         text-align: center;
-        font: ${({ theme }) => theme.font.cardTitle};
+        font: ${({ theme }) => theme.font.showLoading};
     `,
 };
 
-
 function MainLayer() {
-    const [pokemonList, setPokemonList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [pokemonList, setPokemonList] = useState([]);
+    const [fullPokemonList, setFullPokemonList] = useState([]);
+
     const [searchTerm, setSearchTerm] = useState('');
+    const [prevSearchTerm, setPrevSearchTerm] = useState('');
     const [pageNum, setPageNum] = useState(1);
-    
+    const [hasMore, setHasMore] = useState(true);
+
+    const pages = Array.from(Array(pageNum).keys());
+
     const changeSearchTerm = (newSearchTerm) => {
+        setPrevSearchTerm(searchTerm);
         setSearchTerm(newSearchTerm);
     }
 
@@ -43,61 +42,65 @@ function MainLayer() {
         const scrollHeight = document.documentElement.scrollHeight;
         const scrollTop = document.documentElement.scrollTop;
         const clientHeight = document.documentElement.clientHeight;
-    
-        if (scrollTop + clientHeight >= scrollHeight) {
-            console.log('handle Scroll');
-            console.log('scrollHeight: ', scrollHeight);
-            console.log('scrollTop: ', scrollTop);
-            console.log('clientHeight: ', clientHeight);
-            setPageNum(pageNum + 1);
+
+        checkIfHasMore();
+
+        if (scrollTop + clientHeight >= scrollHeight && hasMore) {
+            console.log('bottom, and i have more');
             setIsLoading(true);
+            setPageNum(pageNum => pageNum + 1);
         }
     }
-    
-    function fetchMoreListItems() {
-        console.log('Fetch more list items');
-        setTimeout(() => {
-          setIsLoading(false);
-          setPageNum(0);
-        }, 2000);
-    }
 
-    useEffect(() => {
-        if (!isLoading) return;
-        fetchMoreListItems();
-        console.log('pageNum: ', pageNum);
-    }, [isLoading, pageNum]);
+    const checkIfHasMore = () => {
+        (searchTerm === '') 
+        ? (pageNum-1)*16 >= 898 
+            ? setHasMore(false) 
+            : setHasMore(true)
+        : (pageNum-1)*16 >= pokemonList.length 
+            ? setHasMore(false) 
+            : setHasMore(true)
+    } 
 
+    // change whenever searchterm changes 
     useEffect(() => {
-        console.log('pageNum: ', pageNum);
+        console.log('다른 search term');
+        if (prevSearchTerm !== searchTerm) {
+            setPageNum(1);
+            console.log('SearchTerm: ', searchTerm);
+            setPokemonList(fullPokemonList.filter(pokemon => pokemon.name.startsWith(searchTerm)));
+            setIsLoading(false);
+        } 
+    }, [searchTerm]);
+
+    // initial call
+    useEffect(() => {
+        (async() => {
+            console.log('initial call');
+            const fullData = await getFullPokemonList();
+            setFullPokemonList(fullData);
+            setPokemonList(fullData);
+            fullData && console.log(fullPokemonList.length);
+        })();
+    }, []);
+
+    // call whenever scroll happens
+    useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll)
         }
-    }, []);
+    });
 
-    useEffect(() => {
-        (async() => {
-            if (searchTerm !== '' && searchTerm) {
-                const pokemonList = await getPokemonDataWithSearchTerm(searchTerm, pageNum);
-                setPokemonList(pokemonList);
-            } else {
-                setPageNum(1);
-                const pokemonList = await getPokemonData(pageNum);
-                setPokemonList(pokemonList);
-            }
-        })();
-        
-    }, [searchTerm, pageNum]);
 
     return (
         <Styled.MainPage> 
-            <Header setSearchTerm={changeSearchTerm} pageNum={pageNum}/>
-            <Styled.Grid>
-            {pokemonList?.map((pokemon, idx) => (
-                <Card key={idx} pokemon={pokemon} />
+            <Header setSearchTerm={changeSearchTerm} />
+            <>
+            {pages.map((i) => (
+                <Grid key={i} pageNum={i+1} pokemonList={pokemonList}/>
             ))}
-            </Styled.Grid>
+            </>
             {isLoading && 
                 <Styled.Loading>
                     Loading more pokemons...

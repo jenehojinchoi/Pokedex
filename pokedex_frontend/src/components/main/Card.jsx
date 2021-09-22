@@ -71,7 +71,7 @@ function Card({ pokemon }) {
                 console.log(e);
             }
         })();
-    }, [liked])
+    }, [pokemon])
 
     return (
         <>

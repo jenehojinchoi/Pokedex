@@ -9,11 +9,9 @@ const Styled = {
         align-items: center;
         width: 56rem;
         height: 4rem;
-        margin: 0rem 40rem;
     `,
     
     Input: styled.input`
-        margin-right: 1rem;
         width: 44rem;
         height: 4rem;
         background-color: ${({ theme }) => theme.color.background};

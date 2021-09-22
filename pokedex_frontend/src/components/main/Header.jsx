@@ -10,7 +10,7 @@ const Styled = {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         margin-top: 1vh;
-        width: 100%;
+        width: 100vw;
         height: 10vh;
     `,
 
@@ -21,9 +21,12 @@ const Styled = {
     `,
 
     Profile: styled.div`
+        position: absolute;
+        right: 0;
         display: flex;
         flex-direction: column;
         width: 23rem;
+        right: 0;
     `,
 
     ModalWindow: styled.div`
