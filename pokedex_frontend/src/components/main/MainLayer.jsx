@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Header, Grid } from '../index';
-import { getFullPokemonList } from '../../lib/api';
+import { getFullPokemonList, getLikedList } from '../../lib/api';
 
 
 const Styled = {
@@ -21,7 +21,7 @@ const Styled = {
     `,
 };
 
-function MainLayer() {
+function MainLayer({ likedPage }) {
     const [isLoading, setIsLoading] = useState(false);
     const [pokemonList, setPokemonList] = useState([]);
     const [fullPokemonList, setFullPokemonList] = useState([]);
@@ -64,10 +64,8 @@ function MainLayer() {
 
     // change whenever searchterm changes 
     useEffect(() => {
-        console.log('다른 search term');
         if (prevSearchTerm !== searchTerm) {
             setPageNum(1);
-            console.log('SearchTerm: ', searchTerm);
             setPokemonList(fullPokemonList.filter(pokemon => pokemon.name.startsWith(searchTerm)));
             setIsLoading(false);
         } 
@@ -76,13 +74,17 @@ function MainLayer() {
     // initial call
     useEffect(() => {
         (async() => {
-            console.log('initial call');
-            const fullData = await getFullPokemonList();
-            setFullPokemonList(fullData);
-            setPokemonList(fullData);
-            fullData && console.log(fullPokemonList.length);
+            if (!likedPage) {
+                const fullData = await getFullPokemonList();
+                setFullPokemonList(fullData);
+                setPokemonList(fullData);
+            } else {
+                const fullLikedList = await getLikedList();
+                setFullPokemonList(fullLikedList);
+                setPokemonList(fullLikedList);
+            }
         })();
-    }, []);
+    }, [fullPokemonList]);
 
     // call whenever scroll happens
     useEffect(() => {
@@ -91,7 +93,6 @@ function MainLayer() {
             window.removeEventListener('scroll', handleScroll)
         }
     });
-
 
     return (
         <Styled.MainPage> 

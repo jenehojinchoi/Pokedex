@@ -61,7 +61,6 @@ function Header({ setSearchTerm }) {
 
     const handleClick = e => {
         setProfileClicked(!profileClicked);
-        console.log(profileClicked);
     }
 
     const handleSignOutClick = e => {
@@ -71,7 +70,7 @@ function Header({ setSearchTerm }) {
     }
 
     const handleLikedList = e => {
-        console.log('handle liked list');
+        history.push('/users/like');
     }
 
     let modalWindow = null;

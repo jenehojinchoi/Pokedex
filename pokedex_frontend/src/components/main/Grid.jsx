@@ -17,11 +17,11 @@ function Grid({ pageNum, pokemonList }) {
     const [pokemonsToDisplay, setPokemonsToDisplay] = useState([]);
     
     useEffect(() => {
-        console.log(pageNum);
-        console.log(pokemonList);
-        const newList = pokemonList.slice((pageNum-1)*16, pageNum*16);
-        setPokemonsToDisplay(newList);
-        newList && console.log(newList);
+        if (pokemonList) { 
+            const newList = pokemonList.slice((pageNum-1)*16, pageNum*16);
+            setPokemonsToDisplay(newList);
+            newList && console.log(newList);
+        }
     }, [pokemonList])
 
     return (

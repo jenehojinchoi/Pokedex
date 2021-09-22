@@ -72,7 +72,18 @@ export const getLikedList = async() => {
 
     try {
         const data = await instance.get(`/user/likedlist`, params);
-        return data.data.data.likedPokemonList;
+
+        const likedList = data.data.data.likedPokemonList;
+        const likedListofApiId = likedList.map((pokemon) => 
+            pokemon.apiId
+        )
+
+        const fullData = await getFullPokemonList();
+        const fullLikedList = fullData.filter((pokemon) =>
+            likedListofApiId.includes(pokemon.id)
+        )
+        console.log(fullLikedList);
+        return fullLikedList;
         
     } catch (e) {
         console.log(e);
