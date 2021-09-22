@@ -25,7 +25,7 @@ function MainLayer({ likedPage }) {
     const [isLoading, setIsLoading] = useState(false);
     const [pokemonList, setPokemonList] = useState([]);
     const [fullPokemonList, setFullPokemonList] = useState([]);
-    
+    const [changeDetected, setChangeDetected] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [prevSearchTerm, setPrevSearchTerm] = useState('');
     const [pageNum, setPageNum] = useState(1);
@@ -84,6 +84,21 @@ function MainLayer({ likedPage }) {
         })();
     }, []);
 
+    // whenever like list changes
+    useEffect(() => {
+        (async() => {
+            if (!likedPage) {
+                const fullData = await getFullPokemonList();
+                setFullPokemonList(fullData);
+                setPokemonList(fullData);
+            } else {
+                const fullLikedList = await getLikedList();
+                setFullPokemonList(fullLikedList);
+                setPokemonList(fullLikedList);
+            }
+        })();
+    }, [changeDetected]);
+
     // call whenever scroll happens
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -94,10 +109,20 @@ function MainLayer({ likedPage }) {
 
     return (
         <Styled.MainPage> 
-            <Header setSearchTerm={changeSearchTerm} likedPage={likedPage}/>
+            <Header 
+                setSearchTerm={changeSearchTerm} 
+                likedPage={likedPage}
+            />
             <>
             {pages.map((i) => (
-                <Grid key={i} pageNum={i+1} pokemonList={pokemonList} />
+                <Grid 
+                    key={i} 
+                    pageNum={i+1} 
+                    pokemonList={pokemonList} 
+                    likedPage={likedPage}
+                    setPokemonList={setPokemonList} 
+                    setFullPokemonList={setFullPokemonList}
+                />
             ))}
             </>
             {isLoading && 

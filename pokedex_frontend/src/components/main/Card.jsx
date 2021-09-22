@@ -44,7 +44,7 @@ const Styled = {
     `
 };
 
-function Card({ pokemon }) {
+function Card({ pokemon, likedPage, setPokemonList, setFullPokemonList }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
 
@@ -59,6 +59,11 @@ function Card({ pokemon }) {
     const handleClick = async() => {
         await likePokemon(pokemon);
         setLiked(!liked);
+        if (likedPage) {
+            const fullLikedList = await getLikedList();
+            setFullPokemonList(fullLikedList);
+            setPokemonList(fullLikedList);
+        } 
     }
 
     useEffect(() => {

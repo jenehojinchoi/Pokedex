@@ -13,7 +13,7 @@ const Styled = {
 };
 
 
-function Grid({ pageNum, pokemonList }) {
+function Grid({ pageNum, pokemonList, likedPage, setPokemonList, setFullPokemonList }) {
     const [pokemonsToDisplay, setPokemonsToDisplay] = useState([]);
     
     useEffect(() => {
@@ -27,7 +27,13 @@ function Grid({ pageNum, pokemonList }) {
     return (
         <Styled.Grid>
         {pokemonsToDisplay?.map((pokemon, idx) => (
-            <Card key={idx} pokemon={pokemon} />
+            <Card 
+                key={idx} 
+                pokemon={pokemon} 
+                likedPage={likedPage}
+                setPokemonList={setPokemonList}
+                setFullPokemonList={setFullPokemonList} 
+            />
         ))}
         </Styled.Grid>
     )
