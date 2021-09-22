@@ -25,7 +25,7 @@ function MainLayer({ likedPage }) {
     const [isLoading, setIsLoading] = useState(false);
     const [pokemonList, setPokemonList] = useState([]);
     const [fullPokemonList, setFullPokemonList] = useState([]);
-
+    
     const [searchTerm, setSearchTerm] = useState('');
     const [prevSearchTerm, setPrevSearchTerm] = useState('');
     const [pageNum, setPageNum] = useState(1);
@@ -46,7 +46,6 @@ function MainLayer({ likedPage }) {
         checkIfHasMore();
 
         if (scrollTop + clientHeight >= scrollHeight && hasMore) {
-            console.log('bottom, and i have more');
             setIsLoading(true);
             setPageNum(pageNum => pageNum + 1);
         }
@@ -61,7 +60,6 @@ function MainLayer({ likedPage }) {
             ? setHasMore(false) 
             : setHasMore(true)
     } 
-
     // change whenever searchterm changes 
     useEffect(() => {
         if (prevSearchTerm !== searchTerm) {
@@ -84,7 +82,7 @@ function MainLayer({ likedPage }) {
                 setPokemonList(fullLikedList);
             }
         })();
-    }, [fullPokemonList]);
+    }, []);
 
     // call whenever scroll happens
     useEffect(() => {
@@ -99,7 +97,7 @@ function MainLayer({ likedPage }) {
             <Header setSearchTerm={changeSearchTerm} />
             <>
             {pages.map((i) => (
-                <Grid key={i} pageNum={i+1} pokemonList={pokemonList}/>
+                <Grid key={i} pageNum={i+1} pokemonList={pokemonList} />
             ))}
             </>
             {isLoading && 

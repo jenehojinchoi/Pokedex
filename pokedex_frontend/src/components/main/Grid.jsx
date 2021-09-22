@@ -21,7 +21,7 @@ function Grid({ pageNum, pokemonList }) {
             const newList = pokemonList.slice((pageNum-1)*16, pageNum*16);
             setPokemonsToDisplay(newList);
             newList && console.log(newList);
-        }
+        } 
     }, [pokemonList])
 
     return (
