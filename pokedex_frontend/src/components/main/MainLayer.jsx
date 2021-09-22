@@ -44,7 +44,6 @@ function MainLayer({ likedPage }) {
         const clientHeight = document.documentElement.clientHeight;
 
         checkIfHasMore();
-
         if (scrollTop + clientHeight >= scrollHeight && hasMore) {
             setIsLoading(true);
             setPageNum(pageNum => pageNum + 1);
@@ -60,6 +59,7 @@ function MainLayer({ likedPage }) {
             ? setHasMore(false) 
             : setHasMore(true)
     } 
+
     // change whenever searchterm changes 
     useEffect(() => {
         if (prevSearchTerm !== searchTerm) {
@@ -94,7 +94,7 @@ function MainLayer({ likedPage }) {
 
     return (
         <Styled.MainPage> 
-            <Header setSearchTerm={changeSearchTerm} />
+            <Header setSearchTerm={changeSearchTerm} likedPage={likedPage}/>
             <>
             {pages.map((i) => (
                 <Grid key={i} pageNum={i+1} pokemonList={pokemonList} />

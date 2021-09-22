@@ -6,5 +6,4 @@ export { default as Card } from './main/Card';
 export { default as Grid } from './main/Grid';
 export { default as Header } from './main/Header';
 export { default as SearchBar } from './main/SearchBar';
-//export { default as LikeLayer } from './main/LikeLayer';
 export { default as MainLayer } from './main/MainLayer';

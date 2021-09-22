@@ -55,7 +55,7 @@ const Styled = {
     `,
 };
 
-function Header({ setSearchTerm }) {
+function Header({ setSearchTerm, likedPage }) {
     const [ profileClicked, setProfileClicked ] = useState(false);
     const history = useHistory();
 
@@ -69,8 +69,10 @@ function Header({ setSearchTerm }) {
         history.push('/users/signin');
     }
 
-    const handleLikedList = e => {
-        history.push('/users/like');
+    const handleRedirect= e => {
+        likedPage 
+        ? history.push('/main')
+        : history.push('/users/like')
     }
 
     let modalWindow = null;
@@ -79,7 +81,11 @@ function Header({ setSearchTerm }) {
             <Styled.ModalWindow>
                 <Styled.UserEmail>{localStorage.getItem('user')}</Styled.UserEmail>
                 <Styled.Button onClick={handleSignOutClick}>Sign Out</Styled.Button>
-                <Styled.Button onClick={handleLikedList}>View Liked Pokemons</Styled.Button>
+                {
+                    likedPage 
+                    ? <Styled.Button onClick={handleRedirect}>View More Pokemons</Styled.Button>
+                    : <Styled.Button onClick={handleRedirect}>View Liked Pokemons</Styled.Button>
+                }
             </Styled.ModalWindow>
         )
     } else {
