@@ -48,6 +48,24 @@ export const getFullPokemonList = async () => {
     }
 }
 
+export const getPokemonDetail = async (apiId) => {
+    try {
+        const fullPokemonData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${apiId}`);
+        const pokemon = fullPokemonData.data;
+        const pokemonData = {
+            name: pokemon.name,
+            id: apiId,
+            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${apiId}.png`,
+            abilities: pokemon.abilities,
+            types: pokemon.types,
+            moves: pokemon.moves,
+        };
+        return pokemonData;
+    } catch(e) {
+        console.log(e);
+    }
+}
+
 export const likePokemon = async(pokemon) => {
     try {
         const res = await instance.post(`user/like`, {
