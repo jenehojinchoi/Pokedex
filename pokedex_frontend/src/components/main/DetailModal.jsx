@@ -83,7 +83,8 @@ function DetailModal({pokemonApiId, handleModalClick}) {
     }, [])
 
     return (
-        <>
+        pokemonDetailData 
+        ? (<>
             <Styled.ModalWindow>
             </Styled.ModalWindow>
             <Styled.CloseButton onClick={handleModalClick}>X</Styled.CloseButton>
@@ -141,6 +142,15 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                 </Styled.DetailWrapper>
             </Styled.Wrapper>
         </>
+        ) : (
+            <>
+                <Styled.ModalWindow>
+                </Styled.ModalWindow>
+                <Styled.Wrapper>
+                    Loading ... 
+                </Styled.Wrapper>
+            </>
+        )
     )
 }
 

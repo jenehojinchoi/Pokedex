@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Card, Detail } from '../index';
+import { Card, DetailModal } from '../index';
 
 const Styled = {
     Grid: styled.div`
@@ -30,19 +30,27 @@ function Grid({ pageNum, pokemonList, likedPage, setPokemonList, setFullPokemonL
     }, [pokemonList])
 
     return (
-        <Styled.Grid>
-        {pokemonsToDisplay?.map((pokemon, idx) => (
-            <Card 
-                key={idx} 
-                pokemon={pokemon} 
-                likedPage={likedPage}
-                setDetailPokemonId={setDetailPokemonId}
-                setPokemonList={setPokemonList}
-                setFullPokemonList={setFullPokemonList} 
-                setModalOpened={setModalOpened}
-            />
-        ))}
-        </Styled.Grid>
+        <>
+            <Styled.Grid>
+            {pokemonsToDisplay?.map((pokemon, idx) => (
+                <Card 
+                    key={idx} 
+                    pokemon={pokemon} 
+                    likedPage={likedPage}
+                    setDetailPokemonId={setDetailPokemonId}
+                    setPokemonList={setPokemonList}
+                    setFullPokemonList={setFullPokemonList} 
+                    setModalOpened={setModalOpened}
+                />
+            ))}
+            </Styled.Grid>
+            {modalOpened && detailPokemonId && 
+                <DetailModal 
+                    pokemonApiId={detailPokemonId} 
+                    handleModalClick={handleModalClick}
+                />
+            }
+        </>
     )
 }
 

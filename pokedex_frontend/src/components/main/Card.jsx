@@ -70,6 +70,8 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
     }
 
     const handleCardClick = () => {
+        console.log('card clicked ?? ');
+        console.log(pokemon.id);
         setModalOpened(true);
         setDetailPokemonId(pokemon.id);
     }
