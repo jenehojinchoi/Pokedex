@@ -1,10 +1,10 @@
 DATABASES = {
     'default' : {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Pokedex',
+        'NAME': 'pokedex',
         'USER': 'root',
-        'PASSWORD': '4950HjChoi!',
-        'HOST': '127.0.0.1',
+        'PASSWORD': '4950HjChoi',
+        'HOST': 'pokedex-db.cenhdcsowoyv.us-west-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
