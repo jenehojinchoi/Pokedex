@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'http://3.101.147.69:8000',
     headers: {
         "Content-type": "application/json",
         "Authorization": localStorage.getItem('access_token'),
@@ -10,7 +10,7 @@ const instance = axios.create({
 
 export const signIn = async(email, password) => {
     try {
-        const res = await axios.post(`http://127.0.0.1:8000/user/signin`, {
+        const res = await instance.post(`/user/signin`, {
             email: email,
             password: password,
         });
@@ -23,7 +23,7 @@ export const signIn = async(email, password) => {
 
 export const signUp = async(email, password) => {
     try {
-        const res = await axios.post(`http://127.0.0.1:8000/user/signup`, {
+        const res = await instance.post(`/user/signup`, {
             email: email,
             password: password,
         });
@@ -55,7 +55,6 @@ export const likePokemon = async(pokemon) => {
             pokemonName: pokemon.name,
             pokemonApiId: pokemon.id
         });
-        console.log(res);
         return res;
     } catch (e) {
         console.log('e: ', e);
@@ -82,7 +81,6 @@ export const getLikedList = async() => {
         const fullLikedList = fullData.filter((pokemon) =>
             likedListofApiId.includes(pokemon.id)
         )
-        console.log(fullLikedList);
         return fullLikedList;
         
     } catch (e) {

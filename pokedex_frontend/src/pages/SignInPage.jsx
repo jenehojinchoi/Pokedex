@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { SignForm } from '../components';
 
@@ -46,13 +46,6 @@ const Styled = {
 
 
 const SignPage = (props) => {
-
-    useEffect(() => {
-        console.log('Page: ', props.history);
-        console.log('Page: ', props.history.location.pathname.split('/')[2]);
-      }, [props]);
-
-
     return (
         <Styled.SignPage>
             <Styled.ImageContainer>

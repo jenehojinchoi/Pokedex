@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { LikeLayer, MainLayer } from '../components';
+import { MainLayer } from '../components';
 
 const Styled = {
     MainPage : styled.div`
@@ -21,11 +21,6 @@ const Styled = {
 };
 
 const MainPage = ({ isAuthorized, likedPage }) => {
-    useEffect(() => {
-        console.log('isAuthorized: ', isAuthorized);
-        console.log('is it likedpage? ', likedPage);
-    }, [isAuthorized, likedPage]);
-
     return (
         <> {
             isAuthorized 
