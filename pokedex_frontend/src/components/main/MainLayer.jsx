@@ -19,13 +19,17 @@ const Styled = {
         text-align: center;
         font: ${({ theme }) => theme.font.showLoading};
     `,
+
+    GridContainer: styled.div`
+        margin-top: 10rem;
+        position: relative;
+    `,
 };
 
 function MainLayer({ likedPage }) {
     const [isLoading, setIsLoading] = useState(false);
     const [pokemonList, setPokemonList] = useState([]);
     const [fullPokemonList, setFullPokemonList] = useState([]);
-    const [changeDetected, setChangeDetected] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [prevSearchTerm, setPrevSearchTerm] = useState('');
     const [pageNum, setPageNum] = useState(1);
@@ -97,7 +101,7 @@ function MainLayer({ likedPage }) {
                 setPokemonList(fullLikedList);
             }
         })();
-    }, [changeDetected]);
+    }, []);
 
     // call whenever scroll happens
     useEffect(() => {
@@ -113,7 +117,7 @@ function MainLayer({ likedPage }) {
                 setSearchTerm={changeSearchTerm} 
                 likedPage={likedPage}
             />
-            <>
+            <Styled.GridContainer>
             {pages.map((i) => (
                 <Grid 
                     key={i} 
@@ -124,12 +128,13 @@ function MainLayer({ likedPage }) {
                     setFullPokemonList={setFullPokemonList}
                 />
             ))}
-            </>
+            </Styled.GridContainer>
             {isLoading && 
                 <Styled.Loading>
                     Loading more pokemons...
                 </Styled.Loading>
             }
+            
         </Styled.MainPage>
     )
 }

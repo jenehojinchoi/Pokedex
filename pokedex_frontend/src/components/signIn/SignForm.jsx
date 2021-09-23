@@ -33,7 +33,6 @@ function SignForm({ history }) {
     }
 
     const handleClick = e => {
-        console.log('history: ', history);
         if (pathname === 'signin') {
             history.push('/users/signup');
         } else if (pathname === 'signup') {

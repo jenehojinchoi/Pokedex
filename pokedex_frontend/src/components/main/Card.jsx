@@ -10,6 +10,7 @@ const Styled = {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: 0 1rem;
         width: 17rem;
         height: 23rem;
         border-radius: 1rem;
@@ -44,9 +45,11 @@ const Styled = {
     `
 };
 
-function Card({ pokemon, likedPage, setPokemonList, setFullPokemonList }) {
+function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullPokemonList, setModalOpened }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
+    // const [pokemonDetailData, setPokemonDetailData] = useState([]);
+    //const [modalOpened, setModalOpened] = useState(false);
 
     const handleOnMouseEnter = () => {
         setHovered(true);
@@ -66,8 +69,13 @@ function Card({ pokemon, likedPage, setPokemonList, setFullPokemonList }) {
         } 
     }
 
+    const handleCardClick = () => {
+        setModalOpened(true);
+        setDetailPokemonId(pokemon.id);
+    }
+
     useEffect(() => {
-        (async function() {
+        (async() => {
             try {
                 const likedPokemonList = await getLikedList(pokemon);
                 const likedPokemonIdList = likedPokemonList.map(({ id }) => id)
@@ -83,13 +91,13 @@ function Card({ pokemon, likedPage, setPokemonList, setFullPokemonList }) {
             <Styled.Card
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
+                onClick={handleCardClick}
             >
                 {hovered && <Styled.HoveredCard></Styled.HoveredCard>}
                 <Styled.Img 
                     src={pokemon.image}
                     onerror={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} 
                 />
-
                 {pokemon.name}
                 {hovered && 
                     <Styled.Like>

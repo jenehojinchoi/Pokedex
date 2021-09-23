@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Card } from '../index';
+import { Card, Detail } from '../index';
 
 const Styled = {
     Grid: styled.div`
@@ -14,13 +14,18 @@ const Styled = {
 
 
 function Grid({ pageNum, pokemonList, likedPage, setPokemonList, setFullPokemonList }) {
+    const [modalOpened, setModalOpened] = useState(false);
+    const [detailPokemonId, setDetailPokemonId] = useState(1);
     const [pokemonsToDisplay, setPokemonsToDisplay] = useState([]);
+
+    const handleModalClick = () => {
+        setModalOpened(!modalOpened);
+    }
     
     useEffect(() => {
         if (pokemonList) { 
             const newList = pokemonList.slice((pageNum-1)*16, pageNum*16);
             setPokemonsToDisplay(newList);
-            newList && console.log(newList);
         } 
     }, [pokemonList])
 
@@ -31,8 +36,10 @@ function Grid({ pageNum, pokemonList, likedPage, setPokemonList, setFullPokemonL
                 key={idx} 
                 pokemon={pokemon} 
                 likedPage={likedPage}
+                setDetailPokemonId={setDetailPokemonId}
                 setPokemonList={setPokemonList}
                 setFullPokemonList={setFullPokemonList} 
+                setModalOpened={setModalOpened}
             />
         ))}
         </Styled.Grid>

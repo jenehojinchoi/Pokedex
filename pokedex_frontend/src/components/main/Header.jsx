@@ -7,31 +7,41 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const Styled = {
     Header : styled.div`
+        position: fixed;
+        top: 0;
+        z-index: 14;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        margin-top: 1vh;
+        padding: 3vh 0;
         width: 100vw;
         height: 10vh;
+        background-color: ${({ theme }) => theme.color.white};
     `,
 
     Title: styled.div`
-        margin-left: 2rem;
+        width: 33.33vw; 
+        padding-left: 3rem;
         color: ${({ theme }) => theme.color.skyblue};
         font: ${({ theme }) => theme.font.display2};
     `,
 
     Profile: styled.div`
-        position: absolute;
-        right: 0;
         display: flex;
         flex-direction: column;
-        width: 23rem;
-        right: 0;
     `,
 
+    ProfileIcon: styled.div`
+        margin-right: 0;
+        margin-left: 50rem;
+    `,
+
+
     ModalWindow: styled.div`
+        position: fixed;
+        top: 7rem;
+        right: 5rem;
         margin-top: 1rem;
-        width: 100%;
+        width: 23rem;
         height: 15rem;
         border-radius: 1rem;
         background-color: ${({ theme }) => theme.color.lightgrey};
@@ -43,7 +53,7 @@ const Styled = {
         margin: 2rem 1.5rem;
         text-align: left;
         color: ${({ theme }) => theme.color.black};
-        font: ${({ theme }) => theme.font.ModalMenu};
+        font: ${({ theme }) => theme.font.modalMenu};
     `,
 
     Button: styled.button`
@@ -51,7 +61,7 @@ const Styled = {
         margin: 1rem 1rem;
         text-align: left;
         color: ${({ theme }) => theme.color.primary};
-        font: ${({ theme }) => theme.font.ModalMenu};
+        font: ${({ theme }) => theme.font.modalMenu};
     `,
 };
 
@@ -75,9 +85,9 @@ function Header({ setSearchTerm, likedPage }) {
         : history.push('/users/like')
     }
 
-    let modalWindow = null;
-    if (profileClicked) {   
-        modalWindow = (
+    const modalWindow = 
+        profileClicked 
+        ? (
             <Styled.ModalWindow>
                 <Styled.UserEmail>{localStorage.getItem('user')}</Styled.UserEmail>
                 <Styled.Button onClick={handleSignOutClick}>Sign Out</Styled.Button>
@@ -87,21 +97,22 @@ function Header({ setSearchTerm, likedPage }) {
                     : <Styled.Button onClick={handleRedirect}>View Liked Pokemons</Styled.Button>
                 }
             </Styled.ModalWindow>
+        ) : (
+            <></>
         )
-    } else {
-        modalWindow = <></>
-    }
 
     return (
         <Styled.Header>
             <Styled.Title>Pokedex</Styled.Title>
             <SearchBar setSearchTerm={setSearchTerm}/>
             <Styled.Profile onClick={handleClick}>
-                <FontAwesomeIcon 
-                    icon={faUser} 
-                    size="3x"
-                    style={{color: "skyblue"}}
-                />
+                <Styled.ProfileIcon>
+                    <FontAwesomeIcon 
+                        icon={faUser} 
+                        size="3x"
+                        style={{color: "skyblue"}}
+                    />
+                </Styled.ProfileIcon>
                 {modalWindow}
             </Styled.Profile>
         </Styled.Header>
