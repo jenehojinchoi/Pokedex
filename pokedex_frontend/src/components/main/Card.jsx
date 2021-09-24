@@ -40,16 +40,19 @@ const Styled = {
     `,
 
     Like: styled.i`
-        position: absolute;
         z-index: 11;
-    `
+        margin: auto;
+    `,
+
+    Button: styled.div`
+        z-index: 13;
+        margin: auto;
+    `,
 };
 
 function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullPokemonList, setModalOpened }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
-    // const [pokemonDetailData, setPokemonDetailData] = useState([]);
-    //const [modalOpened, setModalOpened] = useState(false);
 
     const handleOnMouseEnter = () => {
         setHovered(true);
@@ -70,8 +73,6 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
     }
 
     const handleCardClick = () => {
-        console.log('card clicked ?? ');
-        console.log(pokemon.id);
         setModalOpened(true);
         setDetailPokemonId(pokemon.id);
     }
@@ -93,7 +94,6 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
             <Styled.Card
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
-                onClick={handleCardClick}
             >
                 {hovered && <Styled.HoveredCard></Styled.HoveredCard>}
                 <Styled.Img 
@@ -101,17 +101,22 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
                     onerror={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} 
                 />
                 {pokemon.name}
-                {hovered && 
-                    <Styled.Like>
-                        <FontAwesomeIcon 
-                            icon={faHeart} 
-                            size="3x"
-                            onClick={handleClick}
-                            style={liked ? {} : {color: "white"}}
-                        >
-                        </FontAwesomeIcon>
-                    </Styled.Like>
-                }
+                { hovered && 
+                    <>
+                        <Styled.Button onClick={handleCardClick}>
+                            View Details 
+                        </Styled.Button>
+                        <Styled.Like>
+                            <FontAwesomeIcon 
+                                icon={faHeart} 
+                                size="3x"
+                                onClick={handleClick}
+                                style={liked ? {} : {color: "white"}}
+                            >
+                            </FontAwesomeIcon>
+                        </Styled.Like>
+                    </>
+                } 
             </Styled.Card>
         </>
     )
