@@ -1,5 +1,6 @@
 # Pokedex
 ![](https://github.com/jenehojinchoi/Pokedex/blob/main/assets/main.png)
+![](https://github.com/jenehojinchoi/Pokedex/blob/main/assets/detail.png)
 
 Hi, this README will explain the structure of Pokedex, a pokemon library implemented with React and Django.
 Click [here](http://54.215.207.30:3000/) to take a look into this web app.
@@ -12,7 +13,7 @@ Click [here](http://54.215.207.30:3000/) to take a look into this web app.
 4. Ability to like pokemons by clicking the heart of the card - when liked, the heart becomes black
 5. Ability to search pokemons with starting alphabet
 6. Ability to view my own list of liked pokemons
-7. Ability to see each pokemon's details by clicking the card
+7. Ability to see each pokemon's details by clicking the card - shown as modal window
 8. Deployed using AWS EC2
 
 ### Backend
