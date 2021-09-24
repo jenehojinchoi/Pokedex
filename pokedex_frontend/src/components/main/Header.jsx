@@ -76,13 +76,14 @@ function Header({ setSearchTerm, likedPage }) {
     const handleSignOutClick = e => {
         localStorage.removeItem('user');
         localStorage.removeItem('access_token');
-        history.push('/users/signin');
+        alert('Successfully signed out. Redirecting to sign in page...');
+        history.push('/');
     }
 
     const handleRedirect= e => {
         likedPage 
         ? history.push('/main')
-        : history.push('/users/like')
+        : history.push('/like')
     }
 
     const modalWindow = 

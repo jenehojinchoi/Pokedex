@@ -16,7 +16,7 @@ const Styled = {
 };
 
 function SignButton({ history, email, password }) {
-    const pathname = history.location.pathname.split('/')[2];
+    const pathname = history.location.pathname.split('/')[1];
 
     const setAccessTokenAndRedirect = (data) => {
         if (data) {
@@ -36,12 +36,12 @@ function SignButton({ history, email, password }) {
         const response = await signUp(email, password);
         if (response) {
             alert('Successfully created an account. Redirecting to sign in page...');
-            history.push('/users/signin');
+            history.push('/');
         }
     }
 
     return (
-        (pathname === 'signin') 
+        (pathname === '') 
         ? (
             <Styled.Button type="click" onClick={handleSignInClick}>
                 Sign In to Continue

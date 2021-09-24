@@ -22,7 +22,7 @@ const Styled = {
 function SignForm({ history }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const pathname = history.location.pathname.split('/')[2];
+    const pathname = history.location.pathname.split('/')[1];
 
     const handleChange = e => {
         if (e.target.name === 'email') {
@@ -33,10 +33,10 @@ function SignForm({ history }) {
     }
 
     const handleClick = e => {
-        if (pathname === 'signin') {
-            history.push('/users/signup');
+        if (pathname === '') {
+            history.push('/signup');
         } else if (pathname === 'signup') {
-            history.push('/users/signin');
+            history.push('');
         }
     }
 

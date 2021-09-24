@@ -6,37 +6,29 @@ import MainPage from './pages/MainPage';
 import GlobalStyle from "./styles/GlobalStyle";
 
 function App() {
-    const [isAuthorized, setIsAuthorized] = useState(false);
-
-    useEffect(() => {
-        localStorage.getItem('access_token') && setIsAuthorized(true);
-    }, [isAuthorized]);
-
     return (
         <>
             <GlobalStyle />
             <Router>
                 <Route 
-                    exact path='/users/signin' 
+                    exact path='/' 
                     component={SignPage}
                 />
                 <Route 
-                    exact path='/users/signup' 
+                    exact path='/signup' 
                     component={SignPage}
                 />
                 <Route 
                     exact path='/main' 
                     component={() => 
                     <MainPage
-                        isAuthorized={isAuthorized}
                         likedPage={false}
                     />}
                 />
                 <Route 
-                    exact path='/users/like' 
+                    exact path='/like' 
                     component={() => 
                     <MainPage
-                        isAuthorized={isAuthorized}
                         likedPage={true}
                     />}
                 />

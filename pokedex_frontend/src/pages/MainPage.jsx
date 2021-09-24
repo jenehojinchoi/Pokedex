@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { MainLayer } from '../components';
 
@@ -20,13 +20,21 @@ const Styled = {
     `,
 };
 
-const MainPage = ({ isAuthorized, likedPage }) => {
+const MainPage = ({ likedPage }) => {
+    const [isAuthorized, setIsAuthorized] = useState(false);
+
+    useEffect(() => {
+        localStorage.getItem('access_token') && setIsAuthorized(true);
+    }, [isAuthorized]);
+
     return (
-        <> {
+        <> 
+        {
             isAuthorized 
             ? <MainLayer likedPage={likedPage}/>
             : <Styled.MainPage> Not Authorized </Styled.MainPage>
-        } </>
+        } 
+        </>
     );
 };
 
