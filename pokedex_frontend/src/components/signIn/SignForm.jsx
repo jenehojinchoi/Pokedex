@@ -41,7 +41,7 @@ function SignForm({ history }) {
     }
 
     const buttonText = (
-        pathname === 'signin' 
+        pathname === '' 
         ? 'Don\'t have an account? Click here to Sign up' 
         : 'Already have an account? Click here to Sign in'
     )
