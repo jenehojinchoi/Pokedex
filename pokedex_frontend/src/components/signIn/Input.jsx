@@ -8,6 +8,7 @@ const Styled = {
         padding: 1rem;
         background-color: ${({ theme }) => theme.color.background};
         border-radius: 0.5rem;
+        font:  ${({ theme }) => theme.font.cardTitle};
     `,
 };
 

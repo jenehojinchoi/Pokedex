@@ -4,32 +4,43 @@ import { SignForm } from '../components';
 
 const Styled = {
     SignPage : styled.div`
-        display: grid;
         display: flex;
+        flex-direction: row;
         justify-content: center; 
-        align-items: center;
-        grid-gap: 0;
-        grid-template-columns: repeat(2, 1fr);
         width: 100vw;
         height: 100vh;
-        @media screen and (max-width: 500px) {
-            flex-direction: column;
-        }
     `,
 
-    ImageContainer: styled.div`
-        width: 50%;
+    Div: styled.div`
+        width: 40%;
         height: 100%;
+        background-color: ${({ theme }) => theme.color.red};
         @media screen and (max-width: 500px) {
             display: none;
         }
-    `,
-
-    Image: styled.img`
-        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     `,
 
     InputContainer: styled.div`
+        width: 60%;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    `,
+
+
+    Img: styled.img`
+        width: 25rem;
+        height: auto;
+        margin: 15rem 0rem;
+    `,
+
+    Input: styled.div`
         display: grid;
         margin: 0 auto;
         width: 35rem;
@@ -40,8 +51,9 @@ const Styled = {
 
     Title: styled.h1`
         font: ${({ theme }) => theme.font.display2};
-        color: ${({ theme }) => theme.color.primary};
+        color: ${({ theme }) => theme.color.black};
         margin-bottom: 1rem;
+        line-height: 5rem;
     `,
 
     InputGrid: styled.div`
@@ -55,12 +67,12 @@ const Styled = {
 const SignPage = (props) => {
     return (
         <Styled.SignPage>
-            <Styled.ImageContainer>
-                <Styled.Image src="https://cdn2.bulbagarden.net/upload/a/a7/PSMD_poster.png" alt="pokemons" />
-            </Styled.ImageContainer>
+            <Styled.Div />
             <Styled.InputContainer>
-                <Styled.Title>Welcome To Pokedex</Styled.Title>
-                <SignForm history={props.history} />
+                <Styled.Input>
+                    <Styled.Title>Welcome To Pokedex</Styled.Title>
+                    <SignForm history={props.history} />
+                </Styled.Input>
             </Styled.InputContainer>
         </Styled.SignPage>
     );

@@ -8,10 +8,10 @@ const Styled = {
         height: 4rem;
         margin-top: 0.5rem;
         padding: 1rem;
-        background-color: ${({ theme }) => theme.color.primary};
+        background-color: ${({ theme }) => theme.color.red};
         border-radius: 0.5rem;
         color: ${({ theme }) => theme.color.white};
-        font: ${({ theme }) => theme.color.display1};
+        font: ${({ theme }) => theme.font.button};
     `,
 };
 

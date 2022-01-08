@@ -8,6 +8,7 @@ const Styled = {
         grid-gap: 0.5rem;
         grid-template-rows: repeat(3, 1fr);
     `,
+
     GoToSignUpButton: styled.button`
         text-align: center;
         font: ${({ theme }) => theme.font.cardTitle};
@@ -42,7 +43,7 @@ function SignForm({ history }) {
 
     const buttonText = (
         pathname === '' 
-        ? 'Don\'t have an account? Click here to Sign up' 
+        ? 'Don\'t have an account? Click here to Sign up'
         : 'Already have an account? Click here to Sign in'
     )
 

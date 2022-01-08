@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   }
   @media screen and (max-width: 1024px) {
     html {
-      font-size: 6px;
+      font-size: 7px;
     }
   }
 
