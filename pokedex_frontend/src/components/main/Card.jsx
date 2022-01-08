@@ -65,7 +65,8 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
     const handleClick = async() => {
         await likePokemon(pokemon);
         setLiked(!liked);
-        if (likedPage) {
+        if (likedPage && localStorage.getItem('access_token')) {
+            console.log('this is handleClick in Card.jsx');
             const fullLikedList = await getLikedList();
             setFullPokemonList(fullLikedList);
             setPokemonList(fullLikedList);
@@ -80,9 +81,13 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
     useEffect(() => {
         (async() => {
             try {
-                const likedPokemonList = await getLikedList(pokemon);
-                const likedPokemonIdList = likedPokemonList.map(({ id }) => id)
-                likedPokemonIdList.includes(pokemon.id) ? setLiked(true) : setLiked(false)
+                if (localStorage.getItem('access_token')) {
+                    console.log(localStorage.getItem('access_token'));
+                    console.log('this is UseEffect in Card.jsx');
+                    const likedPokemonList = await getLikedList(pokemon);
+                    const likedPokemonIdList = likedPokemonList.map(({ id }) => id)
+                    likedPokemonIdList.includes(pokemon.id) ? setLiked(true) : setLiked(false)
+                }
             } catch (e) {
                 console.log(e);
             }

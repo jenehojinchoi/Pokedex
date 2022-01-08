@@ -5,15 +5,24 @@ import { SignForm } from '../components';
 const Styled = {
     SignPage : styled.div`
         display: grid;
+        display: flex;
+        justify-content: center; 
+        align-items: center;
         grid-gap: 0;
         grid-template-columns: repeat(2, 1fr);
         width: 100vw;
         height: 100vh;
+        @media screen and (max-width: 500px) {
+            flex-direction: column;
+        }
     `,
 
     ImageContainer: styled.div`
         width: 50%;
         height: 100%;
+        @media screen and (max-width: 500px) {
+            display: none;
+        }
     `,
 
     Image: styled.img`
@@ -22,9 +31,7 @@ const Styled = {
 
     InputContainer: styled.div`
         display: grid;
-        position: relative;
-        top: 30%;
-        left: 25%;
+        margin: 0 auto;
         width: 35rem;
         height: 17rem;
         grid-gap: 2.5rem;

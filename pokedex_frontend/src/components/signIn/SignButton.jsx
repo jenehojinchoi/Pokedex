@@ -5,7 +5,7 @@ import { signIn, signUp } from '../../lib/api';
 const Styled = {
     Button: styled.button`
         width: 100%;
-        height: 3.5rem;
+        height: 4rem;
         margin-top: 0.5rem;
         padding: 1rem;
         background-color: ${({ theme }) => theme.color.primary};

@@ -76,11 +76,12 @@ function MainLayer({ likedPage }) {
     // initial call
     useEffect(() => {
         (async() => {
-            if (!likedPage) {
+            if (!likedPage && localStorage.getItem('access_token')) {
                 const fullData = await getFullPokemonList();
                 setFullPokemonList(fullData);
                 setPokemonList(fullData);
-            } else {
+            } else if (localStorage.getItem('access_token')) {
+                console.log('this is useEffect in MainLayer.jsx');
                 const fullLikedList = await getLikedList();
                 setFullPokemonList(fullLikedList);
                 setPokemonList(fullLikedList);
@@ -91,17 +92,18 @@ function MainLayer({ likedPage }) {
     // whenever like list changes
     useEffect(() => {
         (async() => {
-            if (!likedPage) {
+            if (!likedPage && localStorage.getItem('access_token')) {
                 const fullData = await getFullPokemonList();
                 setFullPokemonList(fullData);
                 setPokemonList(fullData);
-            } else {
+            } else if (localStorage.getItem('access_token')) {
+                console.log('this is useEffect in MainLayer.jsx');
                 const fullLikedList = await getLikedList();
                 setFullPokemonList(fullLikedList);
                 setPokemonList(fullLikedList);
             }
         })();
-    }, []);
+    }, [likedPage]);
 
     // call whenever scroll happens
     useEffect(() => {

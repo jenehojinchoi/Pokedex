@@ -20,6 +20,13 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    html {
+      font-size: 6px;
+    }
+  }
+
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
