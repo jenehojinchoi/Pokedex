@@ -99,7 +99,7 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                     {
                         pokemonDetailData.abilities 
                         ? (
-                            <Styled.Detail>abilities: {
+                            <Styled.Detail key='1'>abilities: {
                                 pokemonDetailData.abilities.map((ability, idx) => {
                                     return (
                                         (idx+1 === pokemonDetailData.abilities.length)
@@ -114,7 +114,7 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                     {
                         pokemonDetailData.types 
                         ? (
-                            <Styled.Detail>types: {
+                            <Styled.Detail key='2'>types: {
                                 pokemonDetailData.types.map((type, idx) => {
                                     return (
                                         (idx+1 === pokemonDetailData.types.length)
@@ -129,7 +129,7 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                     {
                         pokemonDetailData.moves 
                         ? (
-                            <Styled.Detail>moves: {
+                            <Styled.Detail key='3'>moves: {
                                 pokemonDetailData.moves.slice(0,7).map((move, idx) => {
                                     return (
                                         (idx+1 === 7)

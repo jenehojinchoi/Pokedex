@@ -16,7 +16,11 @@ const Styled = {
         height: 4rem;
         background-color: ${({ theme }) => theme.color.background};
         border-radius: 0.5rem;
-        padding: 1rem;
+        padding: 2rem;
+        font:  ${({ theme }) => theme.font.cardTitle};
+        ::placeholder: {
+            font: ${({ theme }) => theme.font.cardTitle};
+        }
     `,
 }
 

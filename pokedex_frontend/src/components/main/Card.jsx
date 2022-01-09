@@ -8,7 +8,7 @@ import { like, getLikedPokemonList } from '../../actions/pokemonActions'
 
 const Styled = {
     Card: styled.div`
-        display: flex;
+        display: ${({ likedPage, visibility }) => (likedPage && !visibility) ? 'none' : 'flex'};
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -52,7 +52,7 @@ const Styled = {
     `,
 };
 
-function Card({ pokemon, setModalOpened, setPokemonApiId }) {
+function Card({ pokemon, likedPage, setModalOpened, setPokemonApiId }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
     const dispatch = useDispatch()
@@ -68,10 +68,10 @@ function Card({ pokemon, setModalOpened, setPokemonApiId }) {
         setHovered(false);
     };
 
-    const handleClick = async () => {
-        await dispatch(like(pokemon))
+    const handleClick = () => {
         setLiked(!liked)
-        await dispatch(getLikedPokemonList)
+        dispatch(like(pokemon))
+        dispatch(getLikedPokemonList)
     }
 
     const handleCardClick = () => {
@@ -91,11 +91,13 @@ function Card({ pokemon, setModalOpened, setPokemonApiId }) {
                 console.log(e);
             }
         })();
-    }, [pokemon, likedPokemonList, liked])
+    }, [pokemon, likedPokemonList])
 
     return (
         <>
             <Styled.Card
+                likedPage={likedPage}
+                visibility={liked}
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
             >

@@ -44,6 +44,7 @@ function Grid({ pageNum, likedPage }) {
                 <Card 
                     key={idx} 
                     pokemon={pokemon} 
+                    likedPage={likedPage}
                     setModalOpened={setModalOpened}
                     setPokemonApiId={setDetailPokemonId}
                 />
@@ -52,6 +53,7 @@ function Grid({ pageNum, likedPage }) {
                 <Card 
                     key={idx} 
                     pokemon={pokemon} 
+                    likedPage={likedPage}
                     setModalOpened={setModalOpened}
                     setPokemonApiId={setDetailPokemonId}
                 />
