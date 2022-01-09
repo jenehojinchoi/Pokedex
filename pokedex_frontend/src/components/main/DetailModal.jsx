@@ -9,7 +9,7 @@ const Styled = {
         left: 0;
         right: 0;
         width: 100vw;
-        height: 100rem;
+        height: 100vh;
         z-index: 15;
         background-color: ${({ theme }) => theme.color.black};
         opacity: 0.5;
@@ -27,8 +27,7 @@ const Styled = {
         height: 3rem;
         border-radius: 100%;
         background-color: ${({ theme }) => theme.color.white};
-        font-size: 2rem;
-        color: ${({ theme }) => theme.color.black};
+        font: ${({ theme }) => theme.font.cardTitle};
     `,
 
     Wrapper: styled.div`
@@ -43,6 +42,7 @@ const Styled = {
         z-index: 16;
         background-color: ${({ theme }) => theme.color.white};
         border-radius: 3rem;
+        
     `,
 
     ImageWrapper: styled.div`
@@ -64,8 +64,10 @@ const Styled = {
         width: 50rem;
         height: 50rem;
         font-size: 2.3rem;
-        padding: 10rem 5rem;
+        padding: 10rem 5rem 10rem 0rem;
         color: ${({ theme }) => theme.color.black};
+        font: ${({ theme }) => theme.font.modalWindow};
+        line-height: 3rem;
     `,
 
     Detail: styled.div`

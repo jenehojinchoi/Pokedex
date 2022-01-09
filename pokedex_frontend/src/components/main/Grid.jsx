@@ -45,6 +45,7 @@ function Grid({ pageNum, likedPage }) {
                     key={idx} 
                     pokemon={pokemon} 
                     setModalOpened={setModalOpened}
+                    setPokemonApiId={setDetailPokemonId}
                 />
             ))
             : likedPokemons?.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
@@ -52,6 +53,7 @@ function Grid({ pageNum, likedPage }) {
                     key={idx} 
                     pokemon={pokemon} 
                     setModalOpened={setModalOpened}
+                    setPokemonApiId={setDetailPokemonId}
                 />
             ))}    
             </Styled.Grid>

@@ -41,24 +41,22 @@ const Styled = {
         top: 7rem;
         right: 5rem;
         margin-top: 1rem;
-        width: 23rem;
-        height: 15rem;
+        width: 26rem;
+        height: 13rem;
         border-radius: 1rem;
         background-color: ${({ theme }) => theme.color.lightgrey};
     `,
 
     UserEmail: styled.div`
         width: 100%;
-        padding: 0.1rem 0.6rem;
-        margin: 2rem 1.5rem;
-        text-align: left;
+        margin: 2rem 1rem;
         color: ${({ theme }) => theme.color.black};
         font: ${({ theme }) => theme.font.modalMenu};
     `,
 
-    Button: styled.button`
+    Button: styled.div`
         width: 100%;
-        margin: 1rem 1rem;
+        margin: 2rem 1rem;
         text-align: left;
         color: ${({ theme }) => theme.color.primary};
         font: ${({ theme }) => theme.font.modalMenu};

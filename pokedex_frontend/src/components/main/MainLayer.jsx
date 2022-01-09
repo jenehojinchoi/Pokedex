@@ -77,7 +77,6 @@ function MainLayer({ likedPage }) {
     // initial call
     useEffect(() => {
         dispatch(getPokemonList())
-        console.log(pokemons)
     }, [dispatch]);
 
     // call whenever scroll happens

@@ -6,11 +6,16 @@ import {
     LIKED_POKEMON_LIST_REQUEST,
     LIKED_POKEMON_LIST_SUCCESS,
     LIKED_POKEMON_LIST_FAIL,
+
+    LIKE_POKEMON_REQUEST,
+    LIKE_POKEMON_SUCCESS,
+    LIKE_POKEMON_FAIL,
 } from '../constants/pokemonConstants';
 
 import {
     getFullPokemonList,
-    getLikedList
+    getLikedList,
+    likePokemon
 } from '../lib/api';
 
 export const getPokemonList = () => async (dispatch) => {
@@ -53,6 +58,30 @@ export const getLikedPokemonList = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: LIKED_POKEMON_LIST_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const like = (pokemon) => async (dispatch) => {
+    try {
+        dispatch({
+            type: LIKE_POKEMON_REQUEST
+        })
+
+        const res = await likePokemon(pokemon);
+        console.log(res)
+
+        dispatch({
+            type: LIKE_POKEMON_SUCCESS,
+            payload: res
+        })
+
+    } catch (error) {
+        dispatch({
+            type: LIKE_POKEMON_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message

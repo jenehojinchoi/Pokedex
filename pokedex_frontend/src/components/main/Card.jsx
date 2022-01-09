@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { likePokemon, getLikedList } from '../../lib/api';
 import { useDispatch, useSelector } from 'react-redux'
-import { getLikedPokemonList } from '../../actions/pokemonActions'
+import { like, getLikedPokemonList } from '../../actions/pokemonActions'
 
 
 const Styled = {
@@ -53,7 +52,7 @@ const Styled = {
     `,
 };
 
-function Card({ pokemon, setModalOpened }) {
+function Card({ pokemon, setModalOpened, setPokemonApiId }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
     const dispatch = useDispatch()
@@ -69,20 +68,22 @@ function Card({ pokemon, setModalOpened }) {
         setHovered(false);
     };
 
-    const handleClick = async() => {
-        await likePokemon(pokemon);
-        setLiked(!liked);
+    const handleClick = async () => {
+        await dispatch(like(pokemon))
+        setLiked(!liked)
+        await dispatch(getLikedPokemonList)
     }
 
     const handleCardClick = () => {
+        setPokemonApiId(pokemon.id)
         setModalOpened(true);
-        //setDetailPokemonId(pokemon.id);
     }
 
     useEffect(() => {
         (async() => {
             try {
-                if (likedPokemons) {
+                if (localStorage.getItem('access_token')) {
+                    await dispatch(getLikedPokemonList)
                     const likedPokemonIdList = likedPokemons.map(({ id }) => id)
                     likedPokemonIdList.includes(pokemon.id) ? setLiked(true) : setLiked(false)
                 }
