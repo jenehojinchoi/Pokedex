@@ -12,17 +12,27 @@ const Styled = {
         z-index: 14;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        padding: 3vh 0;
-        width: 100vw;
+        padding: 3rem 0;
+        width: 100%;
         height: 10vh;
         background-color: ${({ theme }) => theme.color.white};
+        @media screen and (max-width: 500px) {
+            width: 100%;
+        }
     `,
 
     Title: styled.div`
         width: 33.33vw; 
-        padding-left: 3rem;
         color: ${({ theme }) => theme.color.skyblue};
-        font: ${({ theme }) => theme.font.display2};
+        @media screen and (max-width: 1920px) {
+            padding-left: 3rem;
+            font: ${({ theme }) => theme.font.display2};
+        }
+        @media screen and (max-width: 500px) {
+            padding-left: 1rem;
+            margin-top: 1rem;
+            font: ${({ theme }) => theme.font.showLoading};
+        }
     `,
 
     Profile: styled.div`
@@ -31,8 +41,9 @@ const Styled = {
     `,
 
     ProfileIcon: styled.div`
-        margin-right: 0;
-        margin-left: 50rem;
+        position: fixed;
+        right: 4rem;
+        margin-top: 0.5rem;
     `,
 
 

@@ -6,11 +6,19 @@ import { getPokemonList, getLikedPokemonList } from '../../actions/pokemonAction
 
 const Styled = {
     Grid: styled.div`
-        display: grid;
-        grid-gap: 3rem;
-        grid-template-columns: repeat(4, 4fr);
-        margin: 1.5rem auto;
         width: 50vw;
+        @media screen and (max-width: 1920px) {
+            display: grid;
+            margin: 1.5rem auto;
+            grid-gap: 3rem;
+            grid-template-columns: repeat(4, 4fr);
+        }
+        @media screen and (max-width: 500px) {
+            display: grid;
+            margin-left: 13rem;
+            grid-gap: 1rem;
+            grid-template-columns: repeat(2, 4fr);
+        }
     `,
 };
 
