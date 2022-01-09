@@ -114,7 +114,7 @@ function Header({ setSearchTerm, likedPage }) {
     return (
         <Styled.Header>
             <Styled.Title>Pokedex</Styled.Title>
-            <SearchBar setSearchTerm={setSearchTerm}/>
+            <SearchBar setSearchTerm={setSearchTerm} />
             <Styled.Profile onClick={handleClick}>
                 <Styled.ProfileIcon>
                     <FontAwesomeIcon 

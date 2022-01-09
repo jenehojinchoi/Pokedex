@@ -90,8 +90,8 @@ function MainLayer({ likedPage }) {
     return (
         <Styled.MainPage> 
             <Header 
-                setSearchTerm={changeSearchTerm} 
                 likedPage={likedPage}
+                setSearchTerm={setSearchTerm}
             />
             <Styled.GridContainer>
             {pages.map((i) => (
@@ -99,6 +99,7 @@ function MainLayer({ likedPage }) {
                     key={i} 
                     pageNum={i+1} 
                     likedPage={likedPage}
+                    searchTerm={searchTerm}
                 />
             ))}
             </Styled.GridContainer>

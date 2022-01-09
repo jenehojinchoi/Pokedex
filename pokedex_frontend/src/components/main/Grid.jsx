@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components';
 import { Card, DetailModal } from '../index';
-import { getPokemonList, getLikedPokemonList } from '../../actions/pokemonActions'
+import { getPokemonList, getLikedPokemonList, searchPokemon } from '../../actions/pokemonActions'
 
 const Styled = {
     Grid: styled.div`
@@ -23,7 +23,7 @@ const Styled = {
 };
 
 
-function Grid({ pageNum, likedPage }) {
+function Grid({ pageNum, likedPage, searchTerm }) {
     const [modalOpened, setModalOpened] = useState(false);
     const [detailPokemonId, setDetailPokemonId] = useState(1);
 
@@ -33,6 +33,8 @@ function Grid({ pageNum, likedPage }) {
     const { pokemons } = pokemonList
     const likedPokemonList = useSelector(state => state.likedPokemonList)
     const { likedPokemons } = likedPokemonList
+    const searchedPokemonList = useSelector(state => state.searchedPokemonList)
+    const { searchedPokemons } = searchedPokemonList
 
     const handleModalClick = () => {
         setModalOpened(!modalOpened);
@@ -48,15 +50,25 @@ function Grid({ pageNum, likedPage }) {
         <>
             <Styled.Grid>
             {!likedPage 
-            ? pokemons?.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
-                <Card 
-                    key={idx} 
-                    pokemon={pokemon} 
-                    likedPage={likedPage}
-                    setModalOpened={setModalOpened}
-                    setPokemonApiId={setDetailPokemonId}
-                />
-            ))
+            ? (searchTerm.length === 0) 
+                ? pokemons?.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
+                    <Card 
+                        key={idx} 
+                        pokemon={pokemon} 
+                        likedPage={likedPage}
+                        setModalOpened={setModalOpened}
+                        setPokemonApiId={setDetailPokemonId}
+                    />
+                ))
+                : searchedPokemons?.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
+                    <Card 
+                        key={idx} 
+                        pokemon={pokemon} 
+                        likedPage={likedPage}
+                        setModalOpened={setModalOpened}
+                        setPokemonApiId={setDetailPokemonId}
+                    />
+                ))
             : likedPokemons?.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
                 <Card 
                     key={idx} 

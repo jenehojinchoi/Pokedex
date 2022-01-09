@@ -10,6 +10,10 @@ import {
     LIKE_POKEMON_REQUEST,
     LIKE_POKEMON_SUCCESS,
     LIKE_POKEMON_FAIL,
+
+    SEARCH_POKEMON_REQUEST,
+    SEARCH_POKEMON_SUCCESS,
+    SEARCH_POKEMON_FAIL,
 } from '../constants/pokemonConstants';
 
 import {
@@ -82,6 +86,30 @@ export const like = (pokemon) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: LIKE_POKEMON_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const searchPokemon = (searchTerm) => async (dispatch) => {
+    try {
+        dispatch({
+            type: SEARCH_POKEMON_REQUEST
+        })
+
+        const pokemonList = await getFullPokemonList();
+        const data = pokemonList.filter(pokemon => pokemon.name.startsWith(searchTerm));
+
+        dispatch({
+            type: SEARCH_POKEMON_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: SEARCH_POKEMON_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message

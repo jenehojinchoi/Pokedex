@@ -1,16 +1,18 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { pokemonListReducer, likedPokemonListReducer } from './reducers/pokemonReducers'
+import { pokemonListReducer, likedPokemonListReducer, searchPokemonReducer } from './reducers/pokemonReducers'
 
 const reducer = combineReducers({
     pokemonList: pokemonListReducer,
     likedPokemonList: likedPokemonListReducer,
+    searchedPokemonList: searchPokemonReducer,
 })
 
 const initialState = {
     pokemonList: { pokemonList: [] },
-    likedPokemonList: { likedPokemonList: [] }
+    likedPokemonList: { likedPokemonList: [] },
+    searchedPokemonList: { searchedPokemons: [] }
 }
 
 const middleware = [thunk]
