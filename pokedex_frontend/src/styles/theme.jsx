@@ -20,7 +20,7 @@ const color = {
     button: "normal 400 1.2rem/1.2rem 'Press Start 2P'",
     cardTitle: "normal 400 1rem/1rem 'Press Start 2P'",
     modalMenu: "normal 700 1.7rem/1.7rem 'Roboto'",
-    showLoading: "normal 700 2.0rem/2.0rem 'Roboto'",
+    showLoading: "normal 400 2.0rem/2.0rem 'Press Start 2P'",
   };
   
   const theme = {

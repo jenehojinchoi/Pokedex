@@ -2,6 +2,10 @@ import {
     POKEMON_LIST_REQUEST,
     POKEMON_LIST_SUCCESS,
     POKEMON_LIST_FAIL,
+
+    LIKED_POKEMON_LIST_REQUEST,
+    LIKED_POKEMON_LIST_SUCCESS,
+    LIKED_POKEMON_LIST_FAIL,
 } from '../constants/pokemonConstants';
 
 export const pokemonListReducer = (state = { pokemons :[] }, action) => {
@@ -13,6 +17,21 @@ export const pokemonListReducer = (state = { pokemons :[] }, action) => {
             return { loading: false, pokemons: action.payload }
 
         case POKEMON_LIST_FAIL:
+            return { loading: false, error: action.payload }
+            
+        default: 
+            return state
+    }
+}
+export const likedPokemonListReducer = (state = { likedPokemons :[] }, action) => {
+    switch(action.type){
+        case LIKED_POKEMON_LIST_REQUEST:
+            return { loading: true, likedPokemons: [] }
+
+        case LIKED_POKEMON_LIST_SUCCESS:
+            return { loading: false, likedPokemons: action.payload }
+
+        case LIKED_POKEMON_LIST_FAIL:
             return { loading: false, error: action.payload }
             
         default: 

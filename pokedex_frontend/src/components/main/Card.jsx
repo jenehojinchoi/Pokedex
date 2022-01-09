@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { likePokemon, getLikedList } from '../../lib/api';
+import { useDispatch, useSelector } from 'react-redux'
+import { getLikedPokemonList } from '../../actions/pokemonActions'
+
 
 const Styled = {
     Card: styled.div`
@@ -50,9 +53,13 @@ const Styled = {
     `,
 };
 
-function Card({ pokemon, likedPage, likedPokemonList, setLikedPokemonList, setDetailPokemonId, setFullPokemonList, setModalOpened }) {
+function Card({ pokemon, setModalOpened }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
+    const dispatch = useDispatch()
+
+    const likedPokemonList = useSelector(state => state.likedPokemonList)
+    const { likedPokemons } = likedPokemonList
 
     const handleOnMouseEnter = () => {
         setHovered(true);
@@ -65,29 +72,25 @@ function Card({ pokemon, likedPage, likedPokemonList, setLikedPokemonList, setDe
     const handleClick = async() => {
         await likePokemon(pokemon);
         setLiked(!liked);
-        if (likedPage && localStorage.getItem('access_token')) {
-            const newList = await getLikedList();
-            setLikedPokemonList(newList);
-        } 
     }
 
     const handleCardClick = () => {
         setModalOpened(true);
-        setDetailPokemonId(pokemon.id);
+        //setDetailPokemonId(pokemon.id);
     }
 
     useEffect(() => {
         (async() => {
             try {
-                if (localStorage.getItem('access_token')) {
-                    const likedPokemonIdList = likedPokemonList.map(({ id }) => id)
+                if (likedPokemons) {
+                    const likedPokemonIdList = likedPokemons.map(({ id }) => id)
                     likedPokemonIdList.includes(pokemon.id) ? setLiked(true) : setLiked(false)
                 }
             } catch (e) {
                 console.log(e);
             }
         })();
-    }, [pokemon, likedPokemonList])
+    }, [pokemon, likedPokemonList, liked])
 
     return (
         <>

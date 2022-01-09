@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components';
 import { Card, DetailModal } from '../index';
-import { getPokemonList } from '../../actions/pokemonActions'
+import { getPokemonList, getLikedPokemonList } from '../../actions/pokemonActions'
 
 const Styled = {
     Grid: styled.div`
@@ -18,11 +18,13 @@ const Styled = {
 function Grid({ pageNum, likedPage }) {
     const [modalOpened, setModalOpened] = useState(false);
     const [detailPokemonId, setDetailPokemonId] = useState(1);
-    const [pokemonsToDisplay, setPokemonsToDisplay] = useState([]);
 
     const dispatch = useDispatch()
+
     const pokemonList = useSelector(state => state.pokemonList)
-    const { loading, error, pokemons } = pokemonList
+    const { pokemons } = pokemonList
+    const likedPokemonList = useSelector(state => state.likedPokemonList)
+    const { likedPokemons } = likedPokemonList
 
     const handleModalClick = () => {
         setModalOpened(!modalOpened);
@@ -31,19 +33,27 @@ function Grid({ pageNum, likedPage }) {
     // initial call
     useEffect(() => {
         dispatch(getPokemonList())
-        console.log(pokemons)
-        setPokemonsToDisplay(pokemons.slice((pageNum-1)*16, pageNum*16))
+        dispatch(getLikedPokemonList())
     }, [dispatch]);
 
     return (
         <>
             <Styled.Grid>
-            {pokemonsToDisplay?.map((pokemon, idx) => (
+            {!likedPage 
+            ? pokemons?.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
                 <Card 
                     key={idx} 
                     pokemon={pokemon} 
+                    setModalOpened={setModalOpened}
                 />
-            ))}
+            ))
+            : likedPokemons?.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
+                <Card 
+                    key={idx} 
+                    pokemon={pokemon} 
+                    setModalOpened={setModalOpened}
+                />
+            ))}    
             </Styled.Grid>
             {modalOpened && detailPokemonId && 
                 <DetailModal 
