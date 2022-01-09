@@ -50,7 +50,7 @@ const Styled = {
     `,
 };
 
-function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullPokemonList, setModalOpened }) {
+function Card({ pokemon, likedPage, likedPokemonList, setLikedPokemonList, setDetailPokemonId, setFullPokemonList, setModalOpened }) {
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
 
@@ -66,10 +66,8 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
         await likePokemon(pokemon);
         setLiked(!liked);
         if (likedPage && localStorage.getItem('access_token')) {
-            console.log('this is handleClick in Card.jsx');
-            const fullLikedList = await getLikedList();
-            setFullPokemonList(fullLikedList);
-            setPokemonList(fullLikedList);
+            const newList = await getLikedList();
+            setLikedPokemonList(newList);
         } 
     }
 
@@ -82,9 +80,6 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
         (async() => {
             try {
                 if (localStorage.getItem('access_token')) {
-                    console.log(localStorage.getItem('access_token'));
-                    console.log('this is UseEffect in Card.jsx');
-                    const likedPokemonList = await getLikedList(pokemon);
                     const likedPokemonIdList = likedPokemonList.map(({ id }) => id)
                     likedPokemonIdList.includes(pokemon.id) ? setLiked(true) : setLiked(false)
                 }
@@ -92,7 +87,7 @@ function Card({ pokemon, likedPage, setDetailPokemonId, setPokemonList, setFullP
                 console.log(e);
             }
         })();
-    }, [pokemon])
+    }, [pokemon, likedPokemonList])
 
     return (
         <>

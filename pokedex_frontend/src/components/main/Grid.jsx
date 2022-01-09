@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components';
 import { Card, DetailModal } from '../index';
+import { getPokemonList } from '../../actions/pokemonActions'
 
 const Styled = {
     Grid: styled.div`
@@ -13,21 +15,25 @@ const Styled = {
 };
 
 
-function Grid({ pageNum, pokemonList, likedPage, setPokemonList, setFullPokemonList }) {
+function Grid({ pageNum, likedPage }) {
     const [modalOpened, setModalOpened] = useState(false);
     const [detailPokemonId, setDetailPokemonId] = useState(1);
     const [pokemonsToDisplay, setPokemonsToDisplay] = useState([]);
 
+    const dispatch = useDispatch()
+    const pokemonList = useSelector(state => state.pokemonList)
+    const { loading, error, pokemons } = pokemonList
+
     const handleModalClick = () => {
         setModalOpened(!modalOpened);
     }
-    
+
+    // initial call
     useEffect(() => {
-        if (pokemonList) { 
-            const newList = pokemonList.slice((pageNum-1)*16, pageNum*16);
-            setPokemonsToDisplay(newList);
-        } 
-    }, [pokemonList])
+        dispatch(getPokemonList())
+        console.log(pokemons)
+        setPokemonsToDisplay(pokemons.slice((pageNum-1)*16, pageNum*16))
+    }, [dispatch]);
 
     return (
         <>
@@ -36,11 +42,6 @@ function Grid({ pageNum, pokemonList, likedPage, setPokemonList, setFullPokemonL
                 <Card 
                     key={idx} 
                     pokemon={pokemon} 
-                    likedPage={likedPage}
-                    setDetailPokemonId={setDetailPokemonId}
-                    setPokemonList={setPokemonList}
-                    setFullPokemonList={setFullPokemonList} 
-                    setModalOpened={setModalOpened}
                 />
             ))}
             </Styled.Grid>

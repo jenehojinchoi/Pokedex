@@ -34,6 +34,7 @@ function SignButton({ history, email, password }) {
 
     const handleSignUpClick = async(e) => {
         const response = await signUp(email, password);
+        console.log(response);
         if (response) {
             alert('Successfully created an account. Redirecting to sign in page...');
             history.push('/');

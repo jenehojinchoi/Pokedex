@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components';
 import { Header, Grid } from '../index';
-import { getFullPokemonList, getLikedList } from '../../lib/api';
-
+import { getPokemonList } from '../../actions/pokemonActions'
 
 const Styled = {
     MainPage : styled.div`
@@ -28,14 +28,16 @@ const Styled = {
 
 function MainLayer({ likedPage }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [pokemonList, setPokemonList] = useState([]);
-    const [fullPokemonList, setFullPokemonList] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [prevSearchTerm, setPrevSearchTerm] = useState('');
     const [pageNum, setPageNum] = useState(1);
     const [hasMore, setHasMore] = useState(true);
 
     const pages = Array.from(Array(pageNum).keys());
+
+    const dispatch = useDispatch()
+    const pokemonList = useSelector(state => state.pokemonList)
+    const { loading, error, pokemons } = pokemonList
 
     const changeSearchTerm = (newSearchTerm) => {
         setPrevSearchTerm(searchTerm);
@@ -59,7 +61,7 @@ function MainLayer({ likedPage }) {
         ? (pageNum-1)*16 >= 898 
             ? setHasMore(false) 
             : setHasMore(true)
-        : (pageNum-1)*16 >= pokemonList.length 
+        : (pageNum-1)*16 >= pokemons.length 
             ? setHasMore(false) 
             : setHasMore(true)
     } 
@@ -68,42 +70,15 @@ function MainLayer({ likedPage }) {
     useEffect(() => {
         if (prevSearchTerm !== searchTerm) {
             setPageNum(1);
-            setPokemonList(fullPokemonList.filter(pokemon => pokemon.name.startsWith(searchTerm)));
             setIsLoading(false);
         } 
     }, [searchTerm]);
 
     // initial call
     useEffect(() => {
-        (async() => {
-            if (!likedPage && localStorage.getItem('access_token')) {
-                const fullData = await getFullPokemonList();
-                setFullPokemonList(fullData);
-                setPokemonList(fullData);
-            } else if (localStorage.getItem('access_token')) {
-                console.log('this is useEffect in MainLayer.jsx');
-                const fullLikedList = await getLikedList();
-                setFullPokemonList(fullLikedList);
-                setPokemonList(fullLikedList);
-            }
-        })();
-    }, []);
-
-    // whenever like list changes
-    useEffect(() => {
-        (async() => {
-            if (!likedPage && localStorage.getItem('access_token')) {
-                const fullData = await getFullPokemonList();
-                setFullPokemonList(fullData);
-                setPokemonList(fullData);
-            } else if (localStorage.getItem('access_token')) {
-                console.log('this is useEffect in MainLayer.jsx');
-                const fullLikedList = await getLikedList();
-                setFullPokemonList(fullLikedList);
-                setPokemonList(fullLikedList);
-            }
-        })();
-    }, [likedPage]);
+        dispatch(getPokemonList())
+        console.log(pokemons)
+    }, [dispatch]);
 
     // call whenever scroll happens
     useEffect(() => {
@@ -124,10 +99,7 @@ function MainLayer({ likedPage }) {
                 <Grid 
                     key={i} 
                     pageNum={i+1} 
-                    pokemonList={pokemonList} 
                     likedPage={likedPage}
-                    setPokemonList={setPokemonList} 
-                    setFullPokemonList={setFullPokemonList}
                 />
             ))}
             </Styled.GridContainer>
