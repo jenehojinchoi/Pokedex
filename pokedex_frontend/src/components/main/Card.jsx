@@ -8,7 +8,7 @@ import { like, getLikedPokemonList } from '../../actions/pokemonActions'
 
 const Styled = {
     Card: styled.div`
-        display: ${({ likedPage, visibility }) => (likedPage && !visibility) ? 'none' : 'flex'};
+        display: ${({ likedPage, visibility }) => (likedPage && visibility==="false") ? 'none' : 'flex'};
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -53,6 +53,7 @@ const Styled = {
 };
 
 function Card({ pokemon, likedPage, setModalOpened, setPokemonApiId }) {
+    const [count, setCount] = useState(0);
     const [hovered, setHovered] = useState(false);
     const [liked, setLiked] = useState(false);
     const dispatch = useDispatch()
@@ -68,7 +69,7 @@ function Card({ pokemon, likedPage, setModalOpened, setPokemonApiId }) {
         setHovered(false);
     };
 
-    const handleClick = () => {
+    const handleClick = async() => {
         setLiked(!liked)
         dispatch(like(pokemon))
         dispatch(getLikedPokemonList)
@@ -91,13 +92,13 @@ function Card({ pokemon, likedPage, setModalOpened, setPokemonApiId }) {
                 console.log(e);
             }
         })();
-    }, [pokemon, likedPokemonList])
+    }, [])
 
     return (
         <>
             <Styled.Card
                 likedPage={likedPage}
-                visibility={liked}
+                visibility={likedPokemons.map(({ id }) => id).includes(pokemon.id) && liked ? "true" : "false"}
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
             >

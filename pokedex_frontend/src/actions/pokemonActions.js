@@ -56,6 +56,7 @@ export const getLikedPokemonList = () => async (dispatch) => {
         })
 
         const data = await getLikedList();
+        console.log(data);
 
         dispatch({
             type: LIKED_POKEMON_LIST_SUCCESS,
@@ -65,9 +66,7 @@ export const getLikedPokemonList = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: LIKED_POKEMON_LIST_FAIL,
-            payload: error.response && error.response.data.detail
-                ? error.response.data.detail
-                : error.message
+            payload: []
         })
     }
 }

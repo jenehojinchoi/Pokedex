@@ -125,8 +125,8 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                                 pokemonDetailData.abilities.map((ability, idx) => {
                                     return (
                                         (idx+1 === pokemonDetailData.abilities.length)
-                                        ? <span>{ability.ability.name} </span>
-                                        : <span>{ability.ability.name}, </span>
+                                        ? <span key={idx}>{ability.ability.name} </span>
+                                        : <span key={idx}>{ability.ability.name}, </span>
                                     )
                                 })
                             } 
@@ -140,8 +140,8 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                                 pokemonDetailData.types.map((type, idx) => {
                                     return (
                                         (idx+1 === pokemonDetailData.types.length)
-                                        ? <span>{type.type.name} </span>
-                                        : <span>{type.type.name}, </span>
+                                        ? <span key={idx}>{type.type.name} </span>
+                                        : <span key={idx}>{type.type.name}, </span>
                                     )
                                 })
                             } 
@@ -155,8 +155,8 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                                 pokemonDetailData.moves.slice(0,7).map((move, idx) => {
                                     return (
                                         (idx+1 === 7)
-                                        ? <span>{move.move.name}, etc </span>
-                                        : <span>{move.move.name}, </span>
+                                        ? <span key={idx}>{move.move.name}, etc </span>
+                                        : <span key={idx}>{move.move.name}, </span>
                                     )
                                 })
                             } 

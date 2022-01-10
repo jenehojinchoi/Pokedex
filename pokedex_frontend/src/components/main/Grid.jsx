@@ -49,30 +49,31 @@ function Grid({ pageNum, likedPage, searchTerm }) {
     }
 
     useEffect(() => {
-        dispatch(getPokemonList())
-        dispatch(getLikedPokemonList())
-    }, []);
-
-    useEffect(() => {
         (async() => {
-            await dispatch(searchLikedPokemon(searchTerm)) 
-            await dispatch(searchPokemon(searchTerm))
-
-            likedPage
-            ? searchTerm.length === 0
-                ? setDisplayedPokemons(likedPokemons)
-                : setDisplayedPokemons(searchedLikedPokemons)
-            : searchTerm.length === 0
+            await dispatch(getPokemonList())
+            await dispatch(getLikedPokemonList())
+            searchTerm.length === 0
                 ? setDisplayedPokemons(pokemons)
                 : setDisplayedPokemons(searchedPokemons)
         })();
+    }, []);
 
+    useEffect(() => {
+        dispatch(searchLikedPokemon(searchTerm)) 
+        dispatch(searchPokemon(searchTerm))
+        likedPage
+        ? searchTerm.length === 0
+            ? setDisplayedPokemons(likedPokemons)
+            : setDisplayedPokemons(searchedLikedPokemons)
+        : searchTerm.length === 0
+            ? setDisplayedPokemons(pokemons)
+            : setDisplayedPokemons(searchedPokemons)
     }, [dispatch, likedPage, searchTerm, displayedPokemons]);
 
     return (
         <>
             <Styled.Grid>
-            {displayedPokemons?.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
+            {displayedPokemons.slice((pageNum-1)*16, pageNum*16).map((pokemon, idx) => (
                 <Card 
                     key={idx} 
                     pokemon={pokemon} 
