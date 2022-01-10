@@ -52,6 +52,7 @@ const Styled = {
         top: 7rem;
         right: 5rem;
         margin-top: 1rem;
+        padding: 1rem;
         width: 26rem;
         height: 13rem;
         border-radius: 1rem;

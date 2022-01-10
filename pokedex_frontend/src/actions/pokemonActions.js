@@ -52,7 +52,6 @@ export const getLikedPokemonList = () => async (dispatch) => {
         })
 
         const data = await getLikedList();
-        console.log(data)
 
         dispatch({
             type: LIKED_POKEMON_LIST_SUCCESS,

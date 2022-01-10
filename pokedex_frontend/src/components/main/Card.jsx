@@ -97,7 +97,7 @@ function Card({ pokemon, likedPage, setModalOpened, setPokemonApiId }) {
         <>
             <Styled.Card
                 likedPage={likedPage}
-                visibility={liked}
+                visibility={liked }
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
             >

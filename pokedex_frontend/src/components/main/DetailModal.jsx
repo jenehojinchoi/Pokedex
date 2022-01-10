@@ -22,12 +22,20 @@ const Styled = {
         align-items: center;
         z-index: 16;
         top: 15rem;
-        right: 40rem;
         width: 3rem;
         height: 3rem;
         border-radius: 100%;
         background-color: ${({ theme }) => theme.color.white};
         font: ${({ theme }) => theme.font.cardTitle};
+        @media screen and (max-width: 1920px) {
+            right: 40rem;
+        }
+        @media screen and (max-width: 1440px) {
+            right: 20rem;
+        }
+        @media screen and (max-width: 500px) {
+            right: 5rem;
+        }
     `,
 
     Wrapper: styled.div`
@@ -36,12 +44,18 @@ const Styled = {
         display: flex;
         flex-direction: row;
         top: 20rem;
-        left: 25%;
         width: 100rem;
         height: 50rem;
         z-index: 16;
         background-color: ${({ theme }) => theme.color.white};
         border-radius: 3rem;
+        @media screen and (max-width: 1920px) {
+            left: 25%;
+        }
+        @media screen and (max-width: 500px) {
+            left: 12.5%;
+            width: 75%;
+        }
         
     `,
 
@@ -57,6 +71,11 @@ const Styled = {
             width: 35rem;
             height: 35rem;
             border-radius: 2rem;
+
+            @media screen and (max-width: 500px) {
+                width: 20rem;
+                height: auto;
+            }
         }
     `,
 
@@ -68,6 +87,10 @@ const Styled = {
         color: ${({ theme }) => theme.color.black};
         font: ${({ theme }) => theme.font.modalWindow};
         line-height: 3rem;
+
+        @media screen and (max-width: 500px) {
+            padding: 5rem 5rem 5rem 0rem;
+        }
     `,
 
     Detail: styled.div`
@@ -87,19 +110,18 @@ function DetailModal({pokemonApiId, handleModalClick}) {
     return (
         pokemonDetailData 
         ? (<>
-            <Styled.ModalWindow>
-            </Styled.ModalWindow>
+            <Styled.ModalWindow />
             <Styled.CloseButton onClick={handleModalClick}>X</Styled.CloseButton>
             <Styled.Wrapper>
                 <Styled.ImageWrapper>
                     <img className="pokemonImage" src={pokemonDetailData.image} alt="pokemon" />
                 </Styled.ImageWrapper>
                 <Styled.DetailWrapper>
-                    <Styled.Detail>name: {pokemonDetailData.name}</Styled.Detail>
+                    <Styled.Detail key={1}>name: {pokemonDetailData.name}</Styled.Detail>
                     {
                         pokemonDetailData.abilities 
                         ? (
-                            <Styled.Detail key='1'>abilities: {
+                            <Styled.Detail key={2}>abilities: {
                                 pokemonDetailData.abilities.map((ability, idx) => {
                                     return (
                                         (idx+1 === pokemonDetailData.abilities.length)
@@ -114,7 +136,7 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                     {
                         pokemonDetailData.types 
                         ? (
-                            <Styled.Detail key='2'>types: {
+                            <Styled.Detail key={3}>types: {
                                 pokemonDetailData.types.map((type, idx) => {
                                     return (
                                         (idx+1 === pokemonDetailData.types.length)
@@ -129,7 +151,7 @@ function DetailModal({pokemonApiId, handleModalClick}) {
                     {
                         pokemonDetailData.moves 
                         ? (
-                            <Styled.Detail key='3'>moves: {
+                            <Styled.Detail key={4}>moves: {
                                 pokemonDetailData.moves.slice(0,7).map((move, idx) => {
                                     return (
                                         (idx+1 === 7)

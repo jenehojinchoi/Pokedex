@@ -30,12 +30,11 @@ function SearchBar({ setSearchTerm }) {
     const dispatch = useDispatch();
 
     const searchedPokemonList = useSelector(state => state.searchedPokemonList)
-    const { searchResults } = searchedPokemonList
+    const { searchedPokemons } = searchedPokemonList
 
     const handleChange = e => {
         setSearchTerm(e.target.value)
         dispatch(searchPokemon(e.target.value))
-        console.log(searchResults)
     }
 
     return (
