@@ -14,6 +14,10 @@ import {
     SEARCH_POKEMON_REQUEST,
     SEARCH_POKEMON_SUCCESS,
     SEARCH_POKEMON_FAIL,
+
+    SEARCH_LIKED_POKEMON_REQUEST,
+    SEARCH_LIKED_POKEMON_SUCCESS,
+    SEARCH_LIKED_POKEMON_FAIL,
 } from '../constants/pokemonConstants';
 
 export const pokemonListReducer = (state = { pokemons :[] }, action) => {
@@ -73,6 +77,22 @@ export const searchPokemonReducer = (state = { searchedPokemons: [] }, action) =
             return { loading: false, searchedPokemons: action.payload }
 
         case SEARCH_POKEMON_FAIL:
+            return { loading: false, error: action.payload }
+            
+        default: 
+            return state
+    }
+}
+
+export const searchLikedPokemonReducer = (state = { searchedLikedPokemons: [] }, action) => {
+    switch(action.type){
+        case SEARCH_LIKED_POKEMON_REQUEST:
+            return { loading: true, searchedLikedPokemons: [] }
+
+        case SEARCH_LIKED_POKEMON_SUCCESS:
+            return { loading: false, searchedLikedPokemons: action.payload }
+
+        case SEARCH_LIKED_POKEMON_FAIL:
             return { loading: false, error: action.payload }
             
         default: 

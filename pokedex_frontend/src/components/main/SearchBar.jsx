@@ -1,7 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components';
-import { searchPokemon  } from '../../actions/pokemonActions'
 
 const Styled = {
     Searchbar: styled.div`
@@ -27,14 +25,8 @@ const Styled = {
 }
 
 function SearchBar({ setSearchTerm }) {
-    const dispatch = useDispatch();
-
-    const searchedPokemonList = useSelector(state => state.searchedPokemonList)
-    const { searchedPokemons } = searchedPokemonList
-
     const handleChange = e => {
         setSearchTerm(e.target.value)
-        dispatch(searchPokemon(e.target.value))
     }
 
     return (
