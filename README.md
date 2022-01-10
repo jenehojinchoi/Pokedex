@@ -1,9 +1,9 @@
 # Pokedex
+![](https://github.com/jenehojinchoi/Pokedex/blob/main/assets/signin.png)
 ![](https://github.com/jenehojinchoi/Pokedex/blob/main/assets/main.png)
 ![](https://github.com/jenehojinchoi/Pokedex/blob/main/assets/detail.png)
 
-Hi, this README will explain the structure of Pokedex, a pokemon library implemented with React and Django.
-Click [here](http://54.215.207.30:3000/) to take a look into this web app.
+Hi, this README will explain the structure of Pokedex, a pokemon library implemented with React and Django. 
 
 ## Main Functionalities
 ### Frontend 
@@ -14,15 +14,15 @@ Click [here](http://54.215.207.30:3000/) to take a look into this web app.
 5. Ability to search pokemons with starting alphabet
 6. Ability to view my own list of liked pokemons
 7. Ability to see each pokemon's details by clicking the card - shown as modal window
-8. Deployed using AWS EC2
+8. Deployed using AWS EC2 (deprecated, now only on local)
 
 ### Backend
 1. Models of user, pokemon, likes_pokemon (contains which user liked which pokemon)
 2. View: sign in, sign up, like pokemon, liked pokemon list
 3. Hash password of user before saving it in database.
 4. Unhash password to check if password input is correct
-5. Used relational database, which was set up in AWS RDS. (MySQL)
-6. Deployed using AWS EC2
+5. Used relational database, which was set up in AWS RDS. (MySQL) (deprecated, now only on local database)
+6. Deployed using AWS EC2 (deprecated, now only on local)
 
 
 ## Structure
@@ -55,6 +55,13 @@ styles directory contains GlobalStyle, which is applied globally to this web app
 │   ├── pages
 │   │   ├── MainPage.jsx
 │   │   └── SignInPage.jsx
+│   ├── actions
+│   │   ├── pokemonActions.js
+│   ├── reducers
+│   │   ├── pokemonReducers.js
+│   ├── constants
+│   │   ├── pokemonConstants.js
+│   ├── store.js
 │   └── styles
 │       ├── GlobalStyle.jsx
 │       └── theme.jsx
@@ -63,5 +70,12 @@ styles directory contains GlobalStyle, which is applied globally to this web app
 ## Further Improvements
 1. Refactoring components for better, more efficient code 
 - especially where useEffect is used in components 
-2. Smoother UI,UX 
-- found out that clicking the heart also pops up the detail view of pokemon, which is what user may not have wanted 
+2. Completely set up for Redux
+- Searching feature has a bug after the implementation of redux
+3. Responsive web
+- Implementation of responsive web necessary for smooth UX in any devices
+4. Load Pokemon data to database
+
+![](https://github.com/jenehojinchoi/Pokedex/blob/main/assets/mobilemain.png)
+![](https://github.com/jenehojinchoi/Pokedex/blob/main/assets/mobiledetail.png)
+
